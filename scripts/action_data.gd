@@ -1,7 +1,7 @@
-class_name action_data
+class_name ActionData
 
 var name : String
-var flavor := ""
+var button_text : String
 var times_done := 0
 var times_per_click := 0
 var times_per_second := 0
