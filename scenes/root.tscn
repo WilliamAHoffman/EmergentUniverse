@@ -6,24 +6,58 @@
 
 [node name="ResourceManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager")]
 script = ExtResource("1_u0srf")
-button_manager = NodePath("../ButtonManager")
+button_manager = NodePath("../ResourceButtonManager")
 
-[node name="ButtonManager" type="Control" parent="."]
+[node name="ResourceButtonManager" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Energy" type="Button" parent="ButtonManager"]
+[node name="WaveFunction" type="Button" parent="ResourceButtonManager"]
 layout_mode = 0
-offset_left = 179.0
-offset_top = 90.0
-offset_right = 537.0
-offset_bottom = 227.0
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 371.0
+offset_bottom = 147.0
 text = "Energy: 0"
 
-[node name="VirtualParticle" type="Button" parent="ButtonManager"]
+[node name="VirtualParticle" type="Button" parent="ResourceButtonManager"]
 layout_mode = 0
-offset_left = 179.0
-offset_top = 237.0
-offset_right = 536.0
-offset_bottom = 377.0
+offset_left = 13.0
+offset_top = 157.0
+offset_right = 370.0
+offset_bottom = 297.0
 text = "Virtual Particles: 0"
+
+[node name="UpQuark" type="Button" parent="ResourceButtonManager"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 157.0
+offset_right = 645.0
+offset_bottom = 220.0
+text = "Up Quark: 0"
+
+[node name="DownQuark" type="Button" parent="ResourceButtonManager"]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 229.0
+offset_right = 644.0
+offset_bottom = 297.0
+text = "Down Quark: 0"
+
+[node name="ActionManager" type="Node2D" parent="."]
+
+[node name="ActionButtonManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="QuarkAction" type="Button" parent="ActionButtonManager"]
+layout_mode = 0
+offset_left = 388.0
+offset_top = 9.0
+offset_right = 644.0
+offset_bottom = 145.0
+text = "Create Quarks
+Cost: 2 Virtual Particles
+Done: 0"
