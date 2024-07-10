@@ -14,3 +14,11 @@ config/name="EmergentUniverse"
 run/main_scene="res://scenes/root.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://sprites/icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://scenes/": "green",
+"res://scripts/": "pink",
+"res://sprites/": "yellow"
+}

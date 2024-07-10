@@ -1,59 +1,53 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyj1qkdkxyycc"]
 
-[ext_resource type="Script" path="res://scripts/resource_manager.gd" id="1_u0srf"]
-[ext_resource type="Script" path="res://scripts/action_manager.gd" id="2_q7vnw"]
+[ext_resource type="Script" path="res://scripts/button_manager.gd" id="1_u0srf"]
+[ext_resource type="Script" path="res://scripts/resource_init.gd" id="2_iomts"]
 
 [node name="Root" type="Node2D"]
 
-[node name="ResourceManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager_resources")]
+[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager")]
 script = ExtResource("1_u0srf")
-button_manager_resources = NodePath("../ResourceButtonManager")
+button_manager = NodePath("../ButtonManagerControl")
 
-[node name="ResourceButtonManager" type="Control" parent="."]
+[node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="WaveFunction" type="Button" parent="ResourceButtonManager"]
+[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 10.0
 offset_right = 371.0
 offset_bottom = 147.0
 
-[node name="VirtualParticle" type="Button" parent="ResourceButtonManager"]
+[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 157.0
 offset_right = 370.0
 offset_bottom = 297.0
+metadata/test = [null]
 
-[node name="UpQuark" type="Button" parent="ResourceButtonManager"]
+[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 157.0
 offset_right = 645.0
 offset_bottom = 220.0
 
-[node name="DownQuark" type="Button" parent="ResourceButtonManager"]
+[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_left = 383.0
 offset_top = 229.0
 offset_right = 644.0
 offset_bottom = 297.0
 
-[node name="ActionManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager_actions")]
-script = ExtResource("2_q7vnw")
-button_manager_actions = NodePath("../ActionButtonManager")
-
-[node name="ActionButtonManager" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="QuarkAction" type="Button" parent="ActionButtonManager"]
+[node name="ActionQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_left = 388.0
 offset_top = 9.0
 offset_right = 644.0
 offset_bottom = 145.0
+
+[node name="ResourceManager" type="Node2D" parent="."]
+script = ExtResource("2_iomts")
