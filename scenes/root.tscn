@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=2 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button_manager.gd" id="1_u0srf"]
-[ext_resource type="Script" path="res://scripts/resource_init.gd" id="2_iomts"]
 
 [node name="Root" type="Node2D"]
 
@@ -26,28 +25,24 @@ offset_left = 13.0
 offset_top = 157.0
 offset_right = 370.0
 offset_bottom = 297.0
-metadata/test = [null]
-
-[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 157.0
-offset_right = 645.0
-offset_bottom = 220.0
-
-[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 383.0
-offset_top = 229.0
-offset_right = 644.0
-offset_bottom = 297.0
 
 [node name="ActionQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
-offset_left = 388.0
-offset_top = 9.0
-offset_right = 644.0
-offset_bottom = 145.0
+offset_left = 396.0
+offset_top = 10.0
+offset_right = 736.0
+offset_bottom = 148.0
 
-[node name="ResourceManager" type="Node2D" parent="."]
-script = ExtResource("2_iomts")
+[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 762.0
+offset_top = 15.0
+offset_right = 1170.0
+offset_bottom = 140.0
+
+[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 161.0
+offset_right = 740.0
+offset_bottom = 296.0

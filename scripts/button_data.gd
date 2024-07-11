@@ -1,8 +1,7 @@
 class_name ButtonData
 
-var name : String
-var text : String
-var is_unlocked := false
-var display_quantity : int
+var is_unlocked = false
 var cost : Dictionary
-var functions : Array
+var functions : Dictionary
+var button : Button
+var unlock_criteria : Dictionary
