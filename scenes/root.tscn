@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=3 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button_manager.gd" id="1_u0srf"]
+[ext_resource type="Script" path="res://scripts/resource_manager.gd" id="2_os0tv"]
 
 [node name="Root" type="Node2D"]
 
-[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager")]
+[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager")]
 script = ExtResource("1_u0srf")
 button_manager = NodePath("../ButtonManagerControl")
+resource_manager = NodePath("../ResourceManager")
 
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
@@ -14,10 +16,10 @@ anchors_preset = 0
 
 [node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 10.0
-offset_right = 371.0
-offset_bottom = 147.0
+offset_left = 17.0
+offset_top = 9.0
+offset_right = 375.0
+offset_bottom = 146.0
 
 [node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -35,14 +37,17 @@ offset_bottom = 148.0
 
 [node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
-offset_left = 762.0
-offset_top = 15.0
-offset_right = 1170.0
-offset_bottom = 140.0
+offset_left = 754.0
+offset_top = 10.0
+offset_right = 1171.0
+offset_bottom = 150.0
 
 [node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
-offset_left = 393.0
-offset_top = 161.0
-offset_right = 740.0
-offset_bottom = 296.0
+offset_left = 397.0
+offset_top = 158.0
+offset_right = 744.0
+offset_bottom = 293.0
+
+[node name="ResourceManager" type="Node2D" parent="."]
+script = ExtResource("2_os0tv")

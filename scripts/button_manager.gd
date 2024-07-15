@@ -1,12 +1,15 @@
+class_name ButtonManager
 extends Node
 
 @export var button_manager : Control
+@export var resource_manager : ResourceManager
 var buttons : Dictionary
 var resources : Dictionary
 
 
 func _ready():
-	_init_resource_data()
+	await owner.ready
+	resources = resource_manager.resources
 	_init_button_data()
 	_add_button_data()
 
@@ -28,6 +31,7 @@ func _on_button_pressed(button):
 			resource.quantity -= buttons[button.name].cost[resource]
 		for function in buttons[button.name].functions:
 			print(function)
+			print(buttons[button.name].functions[function])
 			callv(function, buttons[button.name].functions[function])
 
 
@@ -41,8 +45,7 @@ func _init_button_data():
 	buttons["ResourceVirtualParticle"].unlock_criteria[resources["VirtualParticle"]] = 1
 	
 	buttons["ActionQuark"] = ButtonData.new()
-	buttons["ActionQuark"].functions['_random_create'] = [resources["UpQuark"], 0, 50, 1]
-	buttons["ActionQuark"].functions['_random_create'] = [resources["DownQuark"], 50, 100, 1]
+	buttons["ActionQuark"].functions['_random_create_multi'] = [[[resources["UpQuark"], 0, 50, 1], [resources["DownQuark"], 0, 50, 1]]]
 	buttons["ActionQuark"].unlock_criteria[resources["VirtualParticle"]] = 2
 	buttons["ActionQuark"].cost[resources["VirtualParticle"]] = 2
 	
@@ -51,20 +54,6 @@ func _init_button_data():
 	
 	buttons["ResourceDownQuark"] = ButtonData.new()
 	buttons["ResourceDownQuark"].unlock_criteria[resources["DownQuark"]] = 1
-
-func _init_resource_data():
-	resources["VirtualParticle"] = ResourceData.new()
-	resources["VirtualParticle"].name = "Virtual Particle"
-	
-	resources["WaveFunction"] = ResourceData.new()
-	resources["WaveFunction"].name = "Wave Function"
-	resources["WaveFunction"].quantity_per_click = 1
-	
-	resources["UpQuark"] = ResourceData.new()
-	resources["UpQuark"].name = "Up Quark"
-	
-	resources["DownQuark"] = ResourceData.new()
-	resources["DownQuark"].name = "Down Quark"
 
 
 func _add_button_data():
@@ -94,11 +83,18 @@ func _update_buttons():
 	buttons["ResourceUpQuark"].button.text = "Up Quarks: " + str(resources["UpQuark"].quantity)
 	buttons["ResourceDownQuark"].button.text = "Down Quarks: " + str(resources["DownQuark"].quantity)
 
+
 func _add_click(resource : ResourceData):
 	if resource.is_unlocked:
 		resource.quantity += resource.quantity_per_click
 
-func _random_create(resource : ResourceData, lowerbound : int, upperbound : int, amount : int):
+
+func _random_create_multi(resources : Array):
+	for resource in resources:
+		_random_create(resource[0], resource[1], resource[2], resource[3])
+
+
+func _random_create(resource : ResourceData, upperbound : int, lowerbound : int, amount : int):
 	var item_pull = randi_range(0, 100)
 	if item_pull < randi_range(lowerbound, upperbound):
 		resource.quantity += amount
