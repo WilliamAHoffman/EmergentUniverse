@@ -14,39 +14,30 @@ func _ready():
 	_add_button_data()
 
 
-func _process(delta):
-	_update_buttons()
+func _physics_process(delta):
 	for button in button_manager.get_children():
 		_unlock_buttons(button)
+		buttons[button.name].update_text()
 
 func _on_button_pressed(button):
 	print(button)
-	
-	var cost_done = 0
-	for resource in buttons[button.name].cost:
-		if resource.quantity >= buttons[button.name].cost[resource]:
-			cost_done += 1
-	if cost_done >= buttons[button.name].cost.size():
-		for resource in buttons[button.name].cost:
-			resource.quantity -= buttons[button.name].cost[resource]
-		for function in buttons[button.name].functions:
-			print(function)
-			print(buttons[button.name].functions[function])
-			callv(function, buttons[button.name].functions[function])
+	buttons[button.name]._on_click()
 
 
 func _init_button_data():
 	buttons["ResourceWaveFunction"] = ButtonData.new()
-	buttons["ResourceWaveFunction"].functions['_add_click'] = [resources["WaveFunction"]]
-	buttons["ResourceWaveFunction"].functions['_random_create'] = [resources["VirtualParticle"], 0, 50, 1]
+	buttons["ResourceWaveFunction"].add_resource = resources["WaveFunction"]
+	buttons["ResourceWaveFunction"].add_random_resources[resources["VirtualParticle"]] = [0, 50, 1]
 	
 	buttons["ResourceVirtualParticle"] = ButtonData.new()
-	buttons["ResourceVirtualParticle"].functions['_add_click'] = [resources["VirtualParticle"]]
+	buttons["ResourceVirtualParticle"].add_resource = resources["VirtualParticle"]
 	buttons["ResourceVirtualParticle"].unlock_criteria[resources["VirtualParticle"]] = 1
 	
 	buttons["ActionQuark"] = ButtonData.new()
-	buttons["ActionQuark"].functions['_random_create_multi'] = [[[resources["UpQuark"], 0, 50, 1], [resources["DownQuark"], 0, 50, 1]]]
 	buttons["ActionQuark"].unlock_criteria[resources["VirtualParticle"]] = 2
+	buttons["ActionQuark"].add_random_resources[resources["UpQuark"]] = [0, 50, 1]
+	buttons["ActionQuark"].add_random_resources[resources["DownQuark"]] = [50, 100, 1]
+	buttons["ActionQuark"].main_text = "Create quarks"
 	buttons["ActionQuark"].cost[resources["VirtualParticle"]] = 2
 	
 	buttons["ResourceUpQuark"] = ButtonData.new()
@@ -75,26 +66,3 @@ func _unlock_buttons(button : Button):
 	else:
 		button.visible = true
 
-
-func _update_buttons():
-	buttons["ResourceWaveFunction"].button.text = "Wave Functions: " + str(resources["WaveFunction"].quantity)
-	buttons["ResourceVirtualParticle"].button.text = "Virtual Particles: " + str(resources["VirtualParticle"].quantity)
-	buttons["ActionQuark"].button.text = "buy quarks: \n 2 Virtual Particles"
-	buttons["ResourceUpQuark"].button.text = "Up Quarks: " + str(resources["UpQuark"].quantity)
-	buttons["ResourceDownQuark"].button.text = "Down Quarks: " + str(resources["DownQuark"].quantity)
-
-
-func _add_click(resource : ResourceData):
-	if resource.is_unlocked:
-		resource.quantity += resource.quantity_per_click
-
-
-func _random_create_multi(resources : Array):
-	for resource in resources:
-		_random_create(resource[0], resource[1], resource[2], resource[3])
-
-
-func _random_create(resource : ResourceData, upperbound : int, lowerbound : int, amount : int):
-	var item_pull = randi_range(0, 100)
-	if item_pull < randi_range(lowerbound, upperbound):
-		resource.quantity += amount

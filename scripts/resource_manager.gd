@@ -10,14 +10,14 @@ func _ready():
 
 func _init_resource_data():
 	resources["VirtualParticle"] = ResourceData.new()
-	resources["VirtualParticle"].name = "Virtual Particle"
+	resources["VirtualParticle"].name = "Virtual Particles"
 	
 	resources["WaveFunction"] = ResourceData.new()
-	resources["WaveFunction"].name = "Wave Function"
+	resources["WaveFunction"].name = "Wave Functions"
 	resources["WaveFunction"].quantity_per_click = 1
 	
 	resources["UpQuark"] = ResourceData.new()
-	resources["UpQuark"].name = "Up Quark"
+	resources["UpQuark"].name = "Up Quarks"
 	
 	resources["DownQuark"] = ResourceData.new()
-	resources["DownQuark"].name = "Down Quark"
+	resources["DownQuark"].name = "Down Quarks"
