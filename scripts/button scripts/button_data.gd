@@ -15,6 +15,7 @@ var display_quantity : ResourceData
 #Functional variables
 var add_resource = null #ResourceData #add_resources
 var add_random_resources : Dictionary #Dictionary[ResourceData, Array[lower_chance : int, higher_chance : int, quantity : int]] #add_random_resources
+var random_resource_efficiency : int
 
 
 #Necessary Functions
@@ -22,10 +23,20 @@ func _on_click():
 	if _check_cost():
 		_subtract_cost()
 		if add_resource != null:
-			_add_resources_click()
+			_add_resources(add_resource.quantity_per_click)
 		
 		if add_random_resources != null:
-			_add_random_resources()
+			_add_random_resources(add_resource.quantity_per_click)
+
+
+func _on_timer():
+	if _check_cost():
+		_subtract_cost()
+		if add_resource != null:
+			_add_resources(add_resource.quantity_per_second)
+		
+		if add_random_resources != null:
+			_add_random_resources(add_resource.quantity_per_second)
 
 
 func update_text():
@@ -40,7 +51,7 @@ func update_text():
 	if cost.size() > 0:
 		button.text += "\n cost: "
 		for resource in cost:
-			button.text += "\n" + resource.name + " " + str(cost[resource])
+			button.text += resource.name + " " + str(cost[resource])
 
 
 #Optional Functions
@@ -59,12 +70,12 @@ func _subtract_cost():
 		resource.quantity -= cost[resource]
 
 
-func _add_resources_click():
-	add_resource.quantity += add_resource.quantity_per_click
+func _add_resources(quantity):
+	add_resource.quantity += quantity
 
-
-func _add_random_resources():
+func _add_random_resources(quantity_generated_from):
+	var quantity_multi = (quantity_generated_from * (random_resource_efficiency/100)) + 1
 	var rand_int = randi_range(0, 100)
 	for resource in add_random_resources:
 		if rand_int in range(add_random_resources[resource][0], add_random_resources[resource][1]):
-			resource.quantity += add_random_resources[resource][2]
+			resource.quantity += (add_random_resources[resource][2] * quantity_multi)

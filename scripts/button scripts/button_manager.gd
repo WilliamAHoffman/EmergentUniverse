@@ -20,14 +20,19 @@ func _physics_process(delta):
 		buttons[button.name].update_text()
 
 func _on_button_pressed(button):
-	print(button)
 	buttons[button.name]._on_click()
 
 
 func _init_button_data():
+	
+	buttons["ResourceInfluence"] = ButtonData.new()
+	buttons["ResourceInfluence"].add_resource = resources["Influence"]
+	
 	buttons["ResourceWaveFunction"] = ButtonData.new()
 	buttons["ResourceWaveFunction"].add_resource = resources["WaveFunction"]
 	buttons["ResourceWaveFunction"].add_random_resources[resources["VirtualParticle"]] = [0, 50, 1]
+	buttons["ResourceWaveFunction"].unlock_criteria[resources["Influence"]] = 5
+	buttons["ResourceWaveFunction"].cost[resources["Influence"]] = 1
 	
 	buttons["ResourceVirtualParticle"] = ButtonData.new()
 	buttons["ResourceVirtualParticle"].add_resource = resources["VirtualParticle"]
@@ -41,9 +46,11 @@ func _init_button_data():
 	buttons["ActionQuark"].cost[resources["VirtualParticle"]] = 2
 	
 	buttons["ResourceUpQuark"] = ButtonData.new()
+	buttons["ResourceUpQuark"].add_resource = resources["UpQuark"]
 	buttons["ResourceUpQuark"].unlock_criteria[resources["UpQuark"]] = 1
 	
 	buttons["ResourceDownQuark"] = ButtonData.new()
+	buttons["ResourceDownQuark"].add_resource = resources["DownQuark"]
 	buttons["ResourceDownQuark"].unlock_criteria[resources["DownQuark"]] = 1
 
 
