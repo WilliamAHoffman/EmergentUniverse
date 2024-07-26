@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=3 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
-[ext_resource type="Script" path="res://scripts/item scripts/item_manager.gd" id="3_unsvd"]
 
 [node name="Root" type="Node2D"]
 
@@ -57,8 +56,12 @@ offset_top = 307.0
 offset_right = 318.0
 offset_bottom = 521.0
 
+[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 359.0
+offset_top = 317.0
+offset_right = 686.0
+offset_bottom = 501.0
+
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
-
-[node name="ItemManager" type="Node2D" parent="."]
-script = ExtResource("3_unsvd")

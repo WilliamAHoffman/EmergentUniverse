@@ -10,6 +10,7 @@ var button : Button
 var cost : Dictionary #[ResourceData, int]
 var unlock_criteria : Dictionary #[ResourceData, int]
 var display_quantity : ResourceData
+var cost_scaling : int
 
 
 #Functional variables
@@ -22,11 +23,15 @@ var random_resource_efficiency : int
 func _on_click():
 	if _check_cost():
 		_subtract_cost()
+		
 		if add_resource != null:
 			_add_resources(add_resource.quantity_per_click)
-		
+			
 		if add_random_resources != null:
-			_add_random_resources(add_resource.quantity_per_click)
+			if add_resource != null:
+				_add_random_resources(add_resource.quantity_per_click)
+			else:
+				_add_random_resources(1)
 
 
 func _on_timer():
@@ -41,6 +46,7 @@ func _on_timer():
 
 func update_text():
 	button.text = main_text
+	
 	if add_resource != null:
 		button.text += add_resource.name + ": " + str(add_resource.quantity)
 		if(add_resource.quantity_per_second != 0):
@@ -73,9 +79,11 @@ func _subtract_cost():
 func _add_resources(quantity):
 	add_resource.quantity += quantity
 
+
 func _add_random_resources(quantity_generated_from):
 	var quantity_multi = (quantity_generated_from * (random_resource_efficiency/100)) + 1
 	var rand_int = randi_range(0, 100)
 	for resource in add_random_resources:
 		if rand_int in range(add_random_resources[resource][0], add_random_resources[resource][1]):
 			resource.quantity += (add_random_resources[resource][2] * quantity_multi)
+
