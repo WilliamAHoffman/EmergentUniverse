@@ -10,8 +10,9 @@ var button : Button
 var cost : Dictionary #[ResourceData, int]
 var unlock_criteria : Dictionary #[ResourceData, int]
 var display_quantity : ResourceData
-var cost_scaling : int
-
+var cost_scaling : float
+var on_timer_active = false
+var unpause_timer = true
 
 #Functional variables
 var add_resource = null #ResourceData #add_resources
@@ -49,15 +50,18 @@ func update_text():
 	
 	if add_resource != null:
 		button.text += add_resource.name + ": " + str(add_resource.quantity)
-		if(add_resource.quantity_per_second != 0):
-			button.text += "\n" + "Per Second: " + str(add_resource.quantity_per_second)
 		if(add_resource.quantity_per_click != 0):
 			button.text += "\n" + "Per Click: " + str(add_resource.quantity_per_click)
+		if(add_resource.quantity_per_second != 0):
+			button.text += "\n" + "Per Second: " + str(add_resource.quantity_per_second)
 	
 	if cost.size() > 0:
 		button.text += "\n cost: "
 		for resource in cost:
 			button.text += resource.name + " " + str(cost[resource])
+	
+	if on_timer_active:
+		button.text += "\n active: " + str(unpause_timer)
 
 
 #Optional Functions
@@ -74,6 +78,10 @@ func _check_cost():
 func _subtract_cost():
 	for resource in cost:
 		resource.quantity -= cost[resource]
+	
+	for resource in cost:
+		var scale = ceil(cost[resource] * (1 + cost_scaling))
+		cost[resource] = scale
 
 
 func _add_resources(quantity):

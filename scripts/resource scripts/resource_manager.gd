@@ -10,6 +10,11 @@ func _ready():
 
 func _init_resource_data():
 	
+	resources["Time"] = ResourceData.new()
+	resources["Time"].name = "Time"
+	resources["Time"].dict_name = "Time"
+	resources["Time"].in_quantity_per_second["base"] = 1
+	
 	resources["Influence"] = ResourceData.new()
 	resources["Influence"].name = "Influence"
 	resources["Influence"].dict_name = "Influence"
@@ -45,8 +50,6 @@ func _apply_all_upgrades(resources : Dictionary):
 			resources[resource].quantity_per_second = _apply_add_upgrades(resources[resource], resources[resource].in_quantity_per_second, resources)
 			resources[resource].quantity_per_click *= _apply_multi_upgrades(resources[resource], resources[resource].in_multi_per_click, resources)
 			resources[resource].quantity_per_second *= _apply_multi_upgrades(resources[resource], resources[resource].in_multi_per_second, resources)
-			
-			print(resources[resource].quantity_per_click)
 
 
 func _apply_add_upgrades(resource : ResourceData, upgrades : Dictionary, resources : Dictionary):

@@ -18,15 +18,36 @@ func _physics_process(delta):
 	for button in button_manager.get_children():
 		_unlock_buttons(button)
 		buttons[button.name].update_text()
+		_update_button_active(button)
 
-func _on_button_pressed(button):
+
+func _on_button_pressed(event, button):
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				_left_click(button)
+			MOUSE_BUTTON_RIGHT:
+				_right_click(button)
+
+
+func _left_click(button):
 	buttons[button.name]._on_click()
 	if buttons[button.name].add_resource != null:
 		resource_manager._send_upgrades(buttons[button.name].add_resource, resources)
 	resource_manager._apply_all_upgrades(resources)
 
 
+func _right_click(button):
+	if buttons[button.name].on_timer_active:
+		if buttons[button.name].unpause_timer:
+			buttons[button.name].unpause_timer = false
+		else:
+			buttons[button.name].unpause_timer = true
+
 func _init_button_data():
+	
+	buttons["ResourceTime"] = ButtonData.new()
+	buttons["ResourceTime"].add_resource = resources["Time"]
 	
 	buttons["ResourceInfluence"] = ButtonData.new()
 	buttons["ResourceInfluence"].add_resource = resources["Influence"]
@@ -60,12 +81,12 @@ func _init_button_data():
 	buttons["ShopQuantumFoam"].add_resource = resources["QuantumFoam"]
 	buttons["ShopQuantumFoam"].cost[resources["WaveFunction"]] = 5
 	buttons["ShopQuantumFoam"].unlock_criteria[resources["WaveFunction"]] = 5
-	buttons["ShopQuantumFoam"].cost_scaling = 1
+	buttons["ShopQuantumFoam"].cost_scaling = 0.10
 
 
 func _add_button_data():
 	for button in button_manager.get_children():
-		button.connect("pressed",_on_button_pressed.bind(button))
+		button.connect("gui_input",_on_button_pressed.bind(button))
 		buttons[button.name].button = button
 		if !buttons[button.name].is_unlocked:
 			button.visible = false
@@ -83,3 +104,14 @@ func _unlock_buttons(button : Button):
 		button.visible = true
 
 
+func _on_resource_timer_timeout():
+	for button in button_manager.get_children():
+		if buttons[button.name].add_resource != null:
+			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
+				buttons[button.name]._on_timer()
+
+
+func _update_button_active(button : Button):
+	if buttons[button.name].add_resource != null:
+		if buttons[button.name].add_resource.quantity_per_second > 0:
+			buttons[button.name].on_timer_active = true
