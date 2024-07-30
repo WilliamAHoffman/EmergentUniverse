@@ -35,7 +35,7 @@ func _left_click(button):
 		buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_click)
 		resource_manager._send_upgrades(buttons[button.name].add_resource, resources)
 	else:
-		buttons[button.name]._on_activate(buttons[button.name].times_activate)
+		buttons[button.name]._on_activate(buttons[button.name].times_activate_per_click)
 	resource_manager._apply_all_upgrades(resources)
 
 
@@ -70,6 +70,7 @@ func _init_button_data():
 	buttons["ActionQuark"].add_random_resources[resources["DownQuark"]] = [50, 100, 1]
 	buttons["ActionQuark"].main_text = "Create quarks"
 	buttons["ActionQuark"].cost[resources["VirtualParticle"]] = 2
+	buttons["ActionQuark"].times_activate_per_click = 1
 	
 	buttons["ResourceUpQuark"] = ButtonData.new()
 	buttons["ResourceUpQuark"].add_resource = resources["UpQuark"]
@@ -118,8 +119,7 @@ func _on_resource_timer_timeout():
 			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
 				buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_second)
 		else:
-			if buttons[button.name].times_activate > 0:
-				buttons[button.name]._on_activate(buttons[button.name].times_activate)
+			buttons[button.name]._on_activate(buttons[button.name].times_activate_per_second)
 
 
 func _update_button_active(button : Button):
