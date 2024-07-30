@@ -26,22 +26,28 @@ func _init_resource_data():
 	
 	resources["WaveFunction"] = ResourceData.new()
 	resources["WaveFunction"].name = "Wave Functions"
-	resources["WaveFunction"].dict_name = "WaveFunctions"
+	resources["WaveFunction"].dict_name = "WaveFunction"
 	resources["WaveFunction"].in_quantity_per_click["base"] = 1
 	
 	resources["UpQuark"] = ResourceData.new()
 	resources["UpQuark"].name = "Up Quarks"
-	resources["UpQuark"].dict_name = "UpQuarks"
+	resources["UpQuark"].dict_name = "UpQuark"
 	
 	resources["DownQuark"] = ResourceData.new()
 	resources["DownQuark"].name = "Down Quarks"
-	resources["DownQuark"].dict_name = "DownQuarks"
+	resources["DownQuark"].dict_name = "DownQuark"
 	
 	resources["QuantumFoam"] = ResourceData.new()
 	resources["QuantumFoam"].name = "Quantum Foam"
 	resources["QuantumFoam"].dict_name = "QuantumFoam"
 	resources["QuantumFoam"].out_quantity_per_second["Influence"] = 1
 	resources["QuantumFoam"].in_quantity_per_click["base"] = 1
+	
+	resources["Entanglement"] = ResourceData.new()
+	resources["Entanglement"].name = "Entanglement"
+	resources["Entanglement"].dict_name = "Entanglement"
+	resources["Entanglement"].out_quantity_per_second["WaveFunction"] = 1
+	resources["Entanglement"].in_quantity_per_click["base"] = 1
 
 
 func _apply_all_upgrades(resources : Dictionary):

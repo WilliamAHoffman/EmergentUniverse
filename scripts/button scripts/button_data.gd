@@ -13,6 +13,7 @@ var display_quantity : ResourceData
 var cost_scaling : float
 var on_timer_active = false
 var unpause_timer = true
+var times_activate = 0
 
 #Functional variables
 var add_resource = null #ResourceData #add_resources
@@ -21,28 +22,19 @@ var random_resource_efficiency : int
 
 
 #Necessary Functions
-func _on_click():
+func _on_activate(quantity):
+	
 	if _check_cost():
-		_subtract_cost()
+		_subtract_cost(quantity)
 		
 		if add_resource != null:
-			_add_resources(add_resource.quantity_per_click)
+			_add_resources(quantity)
 			
 		if add_random_resources != null:
 			if add_resource != null:
-				_add_random_resources(add_resource.quantity_per_click)
+				_add_random_resources(quantity)
 			else:
 				_add_random_resources(1)
-
-
-func _on_timer():
-	if _check_cost():
-		_subtract_cost()
-		if add_resource != null:
-			_add_resources(add_resource.quantity_per_second)
-		
-		if add_random_resources != null:
-			_add_random_resources(add_resource.quantity_per_second)
 
 
 func update_text():
@@ -75,9 +67,9 @@ func _check_cost():
 	return false
 
 
-func _subtract_cost():
+func _subtract_cost(times):
 	for resource in cost:
-		resource.quantity -= cost[resource]
+		resource.quantity -= cost[resource] * times
 	
 	for resource in cost:
 		var scale = ceil(cost[resource] * (1 + cost_scaling))

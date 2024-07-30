@@ -78,6 +78,13 @@ offset_right = 1138.0
 offset_bottom = 322.0
 button_mask = 3
 
+[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 754.0
+offset_top = 348.0
+offset_right = 1132.0
+offset_bottom = 572.0
+
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
 
