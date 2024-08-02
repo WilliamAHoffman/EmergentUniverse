@@ -1,0 +1,18 @@
+dict_name==ResourceTime
+
+dict_name==ResourceInfluence
+
+dict_name==ResourceWaveFunction
+
+dict_name==ResourceVirtualParticle
+
+dict_name==ActionQuark
+main_text==Creates quarks
+
+dict_name==ResourceUpQuark
+
+dict_name==ResourceDownQuark
+
+dict_name==ShopQuantumFoam
+
+dict_name==ShopEntanglement

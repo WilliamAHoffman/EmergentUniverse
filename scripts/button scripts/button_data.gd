@@ -9,7 +9,6 @@ var button : Button
 #Conditional variables
 var cost : Dictionary #[ResourceData, int]
 var unlock_criteria : Dictionary #[ResourceData, int]
-var display_quantity : ResourceData
 var cost_scaling : float
 var on_timer_active = false
 var unpause_timer = true

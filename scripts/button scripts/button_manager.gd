@@ -10,7 +10,7 @@ var resources : Dictionary
 func _ready():
 	await owner.ready
 	resources = resource_manager.resources
-	_init_button_data()
+	_import_button_data("C:/Users/whoff/OneDrive/Desktop/Godot Games/EmergentUniverse/data/button_data.txt")
 	_add_button_data()
 
 
@@ -45,6 +45,26 @@ func _right_click(button):
 			buttons[button.name].unpause_timer = false
 		else:
 			buttons[button.name].unpause_timer = true
+
+
+func _import_button_data(file_name):
+	var file = FileAccess.open(file_name, FileAccess.READ)
+	var dict_name = ""
+	
+	while !file.eof_reached():
+		var line = file.get_line()
+		if line != "":
+			var words = line.split("==")
+			if words[0] == "dict_name":
+				dict_name = words[1]
+				buttons[dict_name] = ButtonData.new()
+			if words[0] == "main_text":
+				buttons[dict_name].main_text = words[1]
+			if words[0] == "is_unlocked":
+				buttons[dict_name].is_unlocked = words[1]
+	 
+	file.close()
+
 
 func _init_button_data():
 	
