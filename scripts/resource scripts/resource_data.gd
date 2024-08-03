@@ -14,9 +14,6 @@ var in_quantity_per_click : Dictionary
 var in_quantity_per_second : Dictionary
 var in_multi_per_click : Dictionary
 var in_multi_per_second : Dictionary
-
-#item variables
-
 var out_quantity_per_click : Dictionary
 var out_quantity_per_second : Dictionary
 var out_multi_per_click : Dictionary

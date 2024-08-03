@@ -1,0 +1,30 @@
+dict_name==Time
+name==Time
+in_quantity_per_second==base==1
+
+dict_name==Influence
+name==Influence
+in_quantity_per_click==base==1
+
+dict_name==VirtualParticle
+name==Virtual Particles
+
+dict_name==WaveFunction
+name==Wave Functions
+in_quantity_per_click==base==1
+
+dict_name==UpQuark
+name==UpQuark
+
+dict_name==DownQuark
+name==DownQuark
+
+dict_name==QuantumFoam
+name==Quantum Foam
+in_quantity_per_click==base==1
+out_quantity_per_second==Influence==1
+
+dict_name==Entanglement
+name==Entanglement
+in_quantity_per_click==base==1
+out_quantity_per_second==WaveFunction==1

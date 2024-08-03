@@ -5,49 +5,45 @@ var resources : Dictionary
 
 
 func _ready():
-	_init_resource_data()
+	_import_resources_data("C:/Users/whoff/OneDrive/Desktop/Godot Games/EmergentUniverse/data/resource_data.txt")
 	_apply_all_upgrades(resources)
 
-func _init_resource_data():
-	
-	resources["Time"] = ResourceData.new()
-	resources["Time"].name = "Time"
-	resources["Time"].dict_name = "Time"
-	resources["Time"].in_quantity_per_second["base"] = 1
-	
-	resources["Influence"] = ResourceData.new()
-	resources["Influence"].name = "Influence"
-	resources["Influence"].dict_name = "Influence"
-	resources["Influence"].in_quantity_per_click["base"] = 1
-	
-	resources["VirtualParticle"] = ResourceData.new()
-	resources["VirtualParticle"].name = "Virtual Particles"
-	resources["VirtualParticle"].dict_name = "VirtualParticle"
-	
-	resources["WaveFunction"] = ResourceData.new()
-	resources["WaveFunction"].name = "Wave Functions"
-	resources["WaveFunction"].dict_name = "WaveFunction"
-	resources["WaveFunction"].in_quantity_per_click["base"] = 1
-	
-	resources["UpQuark"] = ResourceData.new()
-	resources["UpQuark"].name = "Up Quarks"
-	resources["UpQuark"].dict_name = "UpQuark"
-	
-	resources["DownQuark"] = ResourceData.new()
-	resources["DownQuark"].name = "Down Quarks"
-	resources["DownQuark"].dict_name = "DownQuark"
-	
-	resources["QuantumFoam"] = ResourceData.new()
-	resources["QuantumFoam"].name = "Quantum Foam"
-	resources["QuantumFoam"].dict_name = "QuantumFoam"
-	resources["QuantumFoam"].out_quantity_per_second["Influence"] = 1
-	resources["QuantumFoam"].in_quantity_per_click["base"] = 1
-	
-	resources["Entanglement"] = ResourceData.new()
-	resources["Entanglement"].name = "Entanglement"
-	resources["Entanglement"].dict_name = "Entanglement"
-	resources["Entanglement"].out_quantity_per_second["WaveFunction"] = 1
-	resources["Entanglement"].in_quantity_per_click["base"] = 1
+
+func _import_resources_data(file_name):
+	var file = FileAccess.open(file_name, FileAccess.READ)
+	var dict_name = ""
+	while !file.eof_reached():
+		var line = file.get_line()
+		if line != "":
+			var words = line.split("==")
+			if words[0] == "dict_name":
+				dict_name = words[1]
+				resources[dict_name] = ResourceData.new()
+				resources[dict_name].dict_name = dict_name
+			if words[0] == "name":
+				resources[dict_name].name = words[1]
+			if words[0] == "is_unlocked":
+				if words[1] == "false":
+					resources[dict_name].is_unlocked = false
+				else:
+					resources[dict_name].is_unlocked = true
+			if words[0] == "in_quantity_per_click":
+				resources[dict_name].in_quantity_per_click[words[1]] = int(words[2])
+			if words[0] == "out_quantity_per_click":
+				resources[dict_name].out_quantity_per_click[words[1]] = int(words[2])
+			if words[0] == "in_quantity_per_second":
+				resources[dict_name].in_quantity_per_second[words[1]] = int(words[2])
+			if words[0] == "out_quantity_per_second":
+				resources[dict_name].out_quantity_per_second[words[1]] = int(words[2])
+			if words[0] == "in_multi_per_click":
+				resources[dict_name].in_multi_per_click[words[1]] = int(words[2])
+			if words[0] == "out_multi_per_click":
+				resources[dict_name].out_multi_per_click[words[1]] = int(words[2])
+			if words[0] == "in_multi_per_second":
+				resources[dict_name].in_multi_per_second[words[1]] = int(words[2])
+			if words[0] == "out_multi_per_second":
+				resources[dict_name].out_multi_per_second[words[1]] = int(words[2])
+	file.close()
 
 
 func _apply_all_upgrades(resources : Dictionary):
