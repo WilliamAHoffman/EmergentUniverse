@@ -50,7 +50,6 @@ func _right_click(button):
 func _import_button_data(file_name):
 	var file = FileAccess.open(file_name, FileAccess.READ)
 	var dict_name = ""
-	
 	while !file.eof_reached():
 		var line = file.get_line()
 		if line != "":
@@ -61,56 +60,37 @@ func _import_button_data(file_name):
 			if words[0] == "main_text":
 				buttons[dict_name].main_text = words[1]
 			if words[0] == "is_unlocked":
-				buttons[dict_name].is_unlocked = words[1]
-	 
+				if words[1] == "false":
+					buttons[dict_name].is_unlocked = false
+				else:
+					buttons[dict_name].is_unlocked = true
+			if words[0] == "cost":
+				buttons[dict_name].cost[resources[words[1]]] = int(words[2])
+			if words[0] == "unlock_criteria":
+				buttons[dict_name].unlock_criteria[resources[words[1]]] = int(words[2])
+			if words[0] == "cost_scaling":
+				buttons[dict_name].cost_scaling = float(words[1])
+			if words[0] == "on_timer_active":
+				if words[1] == "false":
+					buttons[dict_name].on_timer_active = false
+				else:
+					buttons[dict_name].on_timer_active = true
+			if words[0] == "unpause_timer":
+				if words[1] == "false":
+					buttons[dict_name].unpause_timer = false
+				else:
+					buttons[dict_name].unpause_timer = true
+			if words[0] == "times_activate_per_second":
+				buttons[dict_name].times_activate_per_second = int(words[1])
+			if words[0] == "times_activate_per_click":
+				buttons[dict_name].times_activate_per_click = int(words[1])
+			if words[0] == "add_resource":
+				buttons[dict_name].add_resource = resources[words[1]]
+			if words[0] == "add_random_resources":
+				buttons[dict_name].add_random_resources[resources[words[1]]] = [int(words[2]),int(words[3]),int(words[4])]
+			if words[0] == "random_resource_efficiency":
+				buttons[dict_name].random_resource_efficiency = int(words[1])
 	file.close()
-
-
-func _init_button_data():
-	
-	buttons["ResourceTime"] = ButtonData.new()
-	buttons["ResourceTime"].add_resource = resources["Time"]
-	
-	buttons["ResourceInfluence"] = ButtonData.new()
-	buttons["ResourceInfluence"].add_resource = resources["Influence"]
-	
-	buttons["ResourceWaveFunction"] = ButtonData.new()
-	buttons["ResourceWaveFunction"].add_resource = resources["WaveFunction"]
-	buttons["ResourceWaveFunction"].add_random_resources[resources["VirtualParticle"]] = [0, 50, 1]
-	buttons["ResourceWaveFunction"].unlock_criteria[resources["Influence"]] = 5
-	buttons["ResourceWaveFunction"].cost[resources["Influence"]] = 1
-	
-	buttons["ResourceVirtualParticle"] = ButtonData.new()
-	buttons["ResourceVirtualParticle"].add_resource = resources["VirtualParticle"]
-	buttons["ResourceVirtualParticle"].unlock_criteria[resources["VirtualParticle"]] = 1
-	
-	buttons["ActionQuark"] = ButtonData.new()
-	buttons["ActionQuark"].unlock_criteria[resources["VirtualParticle"]] = 2
-	buttons["ActionQuark"].add_random_resources[resources["UpQuark"]] = [0, 50, 1]
-	buttons["ActionQuark"].add_random_resources[resources["DownQuark"]] = [50, 100, 1]
-	buttons["ActionQuark"].main_text = "Create quarks"
-	buttons["ActionQuark"].cost[resources["VirtualParticle"]] = 2
-	buttons["ActionQuark"].times_activate_per_click = 1
-	
-	buttons["ResourceUpQuark"] = ButtonData.new()
-	buttons["ResourceUpQuark"].add_resource = resources["UpQuark"]
-	buttons["ResourceUpQuark"].unlock_criteria[resources["UpQuark"]] = 1
-	
-	buttons["ResourceDownQuark"] = ButtonData.new()
-	buttons["ResourceDownQuark"].add_resource = resources["DownQuark"]
-	buttons["ResourceDownQuark"].unlock_criteria[resources["DownQuark"]] = 1
-	
-	buttons["ShopQuantumFoam"] = ButtonData.new()
-	buttons["ShopQuantumFoam"].add_resource = resources["QuantumFoam"]
-	buttons["ShopQuantumFoam"].cost[resources["WaveFunction"]] = 5
-	buttons["ShopQuantumFoam"].unlock_criteria[resources["WaveFunction"]] = 5
-	buttons["ShopQuantumFoam"].cost_scaling = 0.20
-	
-	buttons["ShopEntanglement"] = ButtonData.new()
-	buttons["ShopEntanglement"].add_resource = resources["Entanglement"]
-	buttons["ShopEntanglement"].cost[resources["VirtualParticle"]] = 5
-	buttons["ShopEntanglement"].unlock_criteria[resources["VirtualParticle"]] = 5
-	buttons["ShopEntanglement"].cost_scaling = 0.20
 
 
 func _add_button_data():

@@ -14,6 +14,7 @@ resource_manager = NodePath("../ResourceManager")
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -22,6 +23,7 @@ offset_top = 9.0
 offset_right = 375.0
 offset_bottom = 146.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -30,6 +32,7 @@ offset_top = 157.0
 offset_right = 370.0
 offset_bottom = 297.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ActionQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -38,6 +41,7 @@ offset_top = 10.0
 offset_right = 736.0
 offset_bottom = 148.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -46,6 +50,7 @@ offset_top = 10.0
 offset_right = 1171.0
 offset_bottom = 150.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -54,6 +59,7 @@ offset_top = 158.0
 offset_right = 744.0
 offset_bottom = 293.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceInfluence" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -62,6 +68,7 @@ offset_top = 307.0
 offset_right = 318.0
 offset_bottom = 521.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -70,6 +77,7 @@ offset_top = 317.0
 offset_right = 686.0
 offset_bottom = 501.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceTime" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -78,6 +86,7 @@ offset_top = 165.0
 offset_right = 1138.0
 offset_bottom = 322.0
 button_mask = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ShopEntanglement" type="Button" parent="ButtonManagerControl"]
 layout_mode = 0
@@ -85,6 +94,7 @@ offset_left = 754.0
 offset_top = 348.0
 offset_right = 1132.0
 offset_bottom = 572.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
