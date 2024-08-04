@@ -39,12 +39,21 @@ func _left_click(button):
 	resource_manager._apply_all_upgrades(resources)
 
 
+func _toggle_all():
+	for button in button_manager.get_children():
+		buttons[button.name].unpause_timer = buttons["ResourceTime"].unpause_timer
+
+
 func _right_click(button):
 	if buttons[button.name].on_timer_active:
 		if buttons[button.name].unpause_timer:
 			buttons[button.name].unpause_timer = false
 		else:
 			buttons[button.name].unpause_timer = true
+			buttons["ResourceTime"].unpause_timer = true
+	if buttons[button.name].add_resource != null:
+		if buttons[button.name].add_resource.name == "Time":
+			_toggle_all()
 
 
 func _import_button_data(file_name):

@@ -28,3 +28,7 @@ dict_name==Entanglement
 name==Entanglement
 in_quantity_per_click==base==1
 out_quantity_per_second==WaveFunction==1
+
+dict_name==Proton
+name==Protons
+in_quantity_per_click==base==1

@@ -4,6 +4,7 @@ class_name ResourceData
 var name : String
 var dict_name : String
 var quantity := 0
+var total_quantity := 0
 var quantity_per_click := 0
 var quantity_per_second := 0
 var is_unlocked = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=5 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
 [ext_resource type="Script" path="res://scripts/test scripts/test_script.gd" id="3_u8dlc"]
+[ext_resource type="Script" path="res://scripts/player scripts/player_data.gd" id="3_w2edp"]
 
 [node name="Root" type="Node2D"]
 
@@ -96,11 +97,21 @@ offset_right = 1132.0
 offset_bottom = 572.0
 metadata/_edit_use_anchors_ = true
 
+[node name="ResourceProton" type="Button" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 525.0
+offset_right = 331.0
+offset_bottom = 648.0
+
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
 
 [node name="ResourceTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("3_w2edp")
 
 [node name="TesterNode" type="Node2D" parent="."]
 script = ExtResource("3_u8dlc")

@@ -9,6 +9,7 @@ cost==Influence==1
 add_resource==WaveFunction
 add_random_resources==VirtualParticle==0==50==1
 unlock_criteria==Influence==5
+random_resource_efficiency==10
 
 dict_name==ResourceVirtualParticle
 add_resource==VirtualParticle
@@ -32,12 +33,24 @@ unlock_criteria==DownQuark==1
 
 dict_name==ShopQuantumFoam
 add_resource==QuantumFoam
+main_text==Generates 1 Influence per second
 cost==WaveFunction==5
+cost==Influence==5
 unlock_criteria==WaveFunction==5
 cost_scaling==0.2
 
 dict_name==ShopEntanglement
 add_resource==Entanglement
+main_text==Generates 1 WaveFunction per second
 cost==VirtualParticle==5
+cost==Influence==5
 unlock_criteria==VirtualParticle==5
 cost_scaling==0.2
+
+dict_name==ResourceProton
+add_resource==Proton
+cost==UpQuark==2
+cost==DownQuark==1
+cost==Influence==10
+unlock_criteria==UpQuark==2
+unlock_criteria==DownQuark==1
