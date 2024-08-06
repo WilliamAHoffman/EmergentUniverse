@@ -5,7 +5,7 @@ var resources : Dictionary
 
 
 func _ready():
-	_import_resources_data("C:/Users/whoff/OneDrive/Desktop/Godot Games/EmergentUniverse/data/resource_data.txt")
+	_import_resources_data("res://data/resource_data.txt")
 	_apply_all_upgrades(resources)
 
 

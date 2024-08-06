@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=4 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
 [ext_resource type="Script" path="res://scripts/test scripts/test_script.gd" id="3_u8dlc"]
-[ext_resource type="Script" path="res://scripts/player scripts/player_data.gd" id="3_w2edp"]
 
-[node name="Root" type="Node2D"]
+[node name="MainScene" type="Node2D"]
 
 [node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager")]
 script = ExtResource("1_u0srf")
@@ -17,101 +16,83 @@ layout_mode = 3
 anchors_preset = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 9.0
-offset_right = 375.0
-offset_bottom = 146.0
+[node name="ResourceGrid" type="GridContainer" parent="ButtonManagerControl"]
+offset_right = 1154.0
+offset_bottom = 649.0
+columns = 5
+
+[node name="ResourceTime" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 button_mask = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 157.0
-offset_right = 370.0
-offset_bottom = 297.0
-button_mask = 3
+[node name="ResourceNeutron" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ActionQuark" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 396.0
-offset_top = 10.0
-offset_right = 736.0
-offset_bottom = 148.0
-button_mask = 3
+[node name="ResourceProton" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 754.0
-offset_top = 10.0
-offset_right = 1171.0
-offset_bottom = 150.0
-button_mask = 3
+[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 397.0
-offset_top = 158.0
-offset_right = 744.0
-offset_bottom = 293.0
-button_mask = 3
+[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceInfluence" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 307.0
-offset_right = 318.0
-offset_bottom = 521.0
-button_mask = 3
+[node name="ResourceInfluence" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 359.0
-offset_top = 317.0
-offset_right = 686.0
-offset_bottom = 501.0
-button_mask = 3
+[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceTime" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 773.0
-offset_top = 165.0
-offset_right = 1138.0
-offset_bottom = 322.0
-button_mask = 3
+[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 754.0
-offset_top = 348.0
-offset_right = 1132.0
-offset_bottom = 572.0
+[node name="ActionQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ResourceProton" type="Button" parent="ButtonManagerControl"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 525.0
-offset_right = 331.0
-offset_bottom = 648.0
+[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
 
 [node name="ResourceTimer" type="Timer" parent="."]
 autostart = true
-
-[node name="Player" type="Node2D" parent="."]
-script = ExtResource("3_w2edp")
 
 [node name="TesterNode" type="Node2D" parent="."]
 script = ExtResource("3_u8dlc")

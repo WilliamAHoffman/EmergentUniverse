@@ -1,8 +1,10 @@
 dict_name==ResourceTime
 add_resource==Time
+location==ResourceGrid
 
 dict_name==ResourceInfluence
 add_resource==Influence
+location==ResourceGrid
 
 dict_name==ResourceWaveFunction
 cost==Influence==1
@@ -10,10 +12,12 @@ add_resource==WaveFunction
 add_random_resources==VirtualParticle==0==50==1
 unlock_criteria==Influence==5
 random_resource_efficiency==10
+location==ResourceGrid
 
 dict_name==ResourceVirtualParticle
 add_resource==VirtualParticle
 unlock_criteria==VirtualParticle==1
+location==ResourceGrid
 
 dict_name==ActionQuark
 main_text==Creates quarks
@@ -22,14 +26,17 @@ add_random_resources==UpQuark==0==50==1
 add_random_resources==DownQuark==50==100==1
 unlock_criteria==VirtualParticle==2
 times_activate_per_click==1
+location==ResourceGrid
 
 dict_name==ResourceUpQuark
 add_resource==UpQuark
 unlock_criteria==UpQuark==1
+location==ResourceGrid
 
 dict_name==ResourceDownQuark
 add_resource==DownQuark
 unlock_criteria==DownQuark==1
+location==ResourceGrid
 
 dict_name==ShopQuantumFoam
 add_resource==QuantumFoam
@@ -38,6 +45,7 @@ cost==WaveFunction==5
 cost==Influence==5
 unlock_criteria==WaveFunction==5
 cost_scaling==0.2
+location==ResourceGrid
 
 dict_name==ShopEntanglement
 add_resource==Entanglement
@@ -46,11 +54,22 @@ cost==VirtualParticle==5
 cost==Influence==5
 unlock_criteria==VirtualParticle==5
 cost_scaling==0.2
+location==ResourceGrid
 
 dict_name==ResourceProton
 add_resource==Proton
 cost==UpQuark==2
 cost==DownQuark==1
-cost==Influence==10
+cost==WaveFunction==200
 unlock_criteria==UpQuark==2
 unlock_criteria==DownQuark==1
+location==ResourceGrid
+
+dict_name==ResourceNeutron
+add_resource==Neutron
+cost==UpQuark==1
+cost==DownQuark==2
+cost==WaveFunction==200
+unlock_criteria==UpQuark==1
+unlock_criteria==DownQuark==2
+location==ResourceGrid

@@ -4,6 +4,7 @@ class_name ButtonData
 var main_text : String
 var is_unlocked = false
 var button : Button
+var location : String
 
 
 #Conditional variables
