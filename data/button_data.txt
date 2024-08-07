@@ -73,3 +73,7 @@ cost==WaveFunction==200
 unlock_criteria==UpQuark==1
 unlock_criteria==DownQuark==2
 location==ResourceGrid
+
+dict_name==ResourceStrangeQuark
+add_resource==StrangeQuark
+location==ResourceGrid

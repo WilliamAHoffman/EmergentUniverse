@@ -17,76 +17,10 @@ anchors_preset = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="ResourceGrid" type="GridContainer" parent="ButtonManagerControl"]
+layout_mode = 0
 offset_right = 1154.0
 offset_bottom = 649.0
 columns = 5
-
-[node name="ResourceTime" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-button_mask = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceNeutron" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceProton" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceInfluence" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ActionQuark" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl/ResourceGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")

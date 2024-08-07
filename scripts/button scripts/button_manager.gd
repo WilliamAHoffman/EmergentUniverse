@@ -148,5 +148,10 @@ func _get_buttons():
 
 
 func _create_buttons():
+	var button_template = preload("res://scenes/button_template.tscn")
 	for button in buttons:
-		pass
+		for grid in button_manager.get_children():
+			if grid.name == buttons[button].location:
+				var button_instance = button_template.instantiate()
+				button_instance.name = button
+				grid.add_child(button_instance)

@@ -1,6 +1,7 @@
 class_name ResourceData
 
 # necessary variables
+
 var name : String
 var dict_name : String
 var quantity := 0

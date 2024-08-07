@@ -36,3 +36,7 @@ in_quantity_per_click==base==1
 dict_name==Neutron
 name==Neutrons
 in_quantity_per_click==base==1
+
+dict_name==StrangeQuark
+name==Strange Quarks
+in_quantity_per_click==base==1
