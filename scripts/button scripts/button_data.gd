@@ -7,6 +7,7 @@ var is_unlocked = false
 var button : Button
 var location : String
 var perma_unlocked = true
+var sprite : Sprite2D
 
 
 #Conditional variables
@@ -25,7 +26,7 @@ var random_resource_efficiency : int
 
 
 #Necessary Functions
-func _on_activate(quantity):
+func _on_activate(quantity, mode):
 	if quantity > 0:
 		if _check_cost(quantity):
 			_subtract_cost(quantity)
@@ -38,6 +39,8 @@ func _on_activate(quantity):
 					_add_random_resources(quantity)
 				else:
 					_add_random_resources(quantity)
+			if mode == "click":
+				Player.total_clicks += 1
 
 
 func update_text():

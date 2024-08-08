@@ -29,10 +29,11 @@ func _on_button_pressed(location):
 		camera.position.x = 0
 		resource_teli.get_child(0).visible = false
 	if camera_location == "Shop":
-		camera.position.x = get_viewport().size.x
+		print(get_viewport_rect().size.x)
+		camera.position.x = get_viewport_rect().size.x
 		shop_teli.get_child(0).visible = false
 	if camera_location == "Action":
-		camera.position.x = get_viewport().size.x * 2
+		camera.position.x = get_viewport_rect().size.x * 2
 		action_teli.get_child(0).visible = false
 
 

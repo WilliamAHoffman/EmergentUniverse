@@ -4,6 +4,7 @@ extends Node
 @export var button_manager : Control
 @export var resource_manager : ResourceManager
 @export var notif : PackedScene
+@export var button_timer : Timer
 var buttons : Dictionary
 var resources : Dictionary
 var button_children : Array
@@ -40,7 +41,7 @@ func _on_button_pressed(event, button):
 
 func _left_click(button):
 	if buttons[button.name].add_resource != null:
-		buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_click)
+		buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_click, "click")
 		resource_manager._send_upgrades(buttons[button.name].add_resource, resources)
 	else:
 		buttons[button.name]._on_activate(buttons[button.name].times_activate_per_click)
@@ -48,6 +49,10 @@ func _left_click(button):
 
 
 func _toggle_all():
+	if buttons["ResourceTime"].unpause_timer:
+		button_timer.start()
+	if !buttons["ResourceTime"].unpause_timer:
+		button_timer.stop()
 	for button in button_children:
 		buttons[button.name].unpause_timer = buttons["ResourceTime"].unpause_timer
 
@@ -59,6 +64,7 @@ func _right_click(button):
 		else:
 			buttons[button.name].unpause_timer = true
 			buttons["ResourceTime"].unpause_timer = true
+			button_timer.start()
 	if buttons[button.name].add_resource != null:
 		if buttons[button.name].add_resource.name == "Time":
 			_toggle_all()
@@ -149,12 +155,13 @@ func _unlock_buttons(button : Button):
 
 
 func _on_resource_timer_timeout():
+	Player.total_seconds += 1
 	for button in button_children:
 		if buttons[button.name].add_resource != null:
 			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
-				buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_second)
+				buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_second, "second")
 		else:
-			buttons[button.name]._on_activate(buttons[button.name].times_activate_per_second)
+			buttons[button.name]._on_activate(buttons[button.name].times_activate_per_second, "second")
 
 
 func _update_button_active(button : Button):
