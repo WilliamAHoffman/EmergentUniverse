@@ -44,7 +44,7 @@ func _left_click(button):
 		buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_click, "click")
 		resource_manager._send_upgrades(buttons[button.name].add_resource, resources)
 	else:
-		buttons[button.name]._on_activate(buttons[button.name].times_activate_per_click)
+		buttons[button.name]._on_activate(buttons[button.name].times_activate_per_click, "click")
 	resource_manager._apply_all_upgrades(resources)
 
 
