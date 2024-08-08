@@ -1,11 +1,6 @@
 extends Node
 
+var milestones : Dictionary
+var total_clicks : int
+var total_seconds : int
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

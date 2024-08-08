@@ -1,5 +1,6 @@
 class_name ButtonData
 
+
 #Main variables
 var main_text : String
 var is_unlocked = false
@@ -83,6 +84,7 @@ func _add_resources(quantity, resource):
 	if resource.perma_unlocked:
 		resource.quantity += quantity
 		resource.total_quantity += quantity
+		EventBus.emit_signal("gain_resource", resource)
 
 
 func _add_random_resources(quantity_generated_from):

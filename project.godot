@@ -18,9 +18,12 @@ config/icon="res://sprites/icon.svg"
 [autoload]
 
 Player="*res://scripts/player scripts/player.gd"
+EventBus="*res://scripts/event_bus.gd"
 
 [display]
 
+window/size/viewport_width=1980
+window/size/viewport_height=1280
 window/stretch/mode="viewport"
 
 [file_customization]

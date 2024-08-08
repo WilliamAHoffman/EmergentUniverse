@@ -1,11 +1,9 @@
 extends Control
 
 @export var camera : Camera2D
-@export var EventBus : Node2D
 @export var shop_teli : Button
 @export var resource_teli : Button
 @export var action_teli : Button
-@export var resource_display : Node2D
 var resources : Dictionary
 var camera_location = "Resources"
 
@@ -30,15 +28,12 @@ func _on_button_pressed(location):
 	if camera_location == "Resource":
 		camera.position.x = 0
 		resource_teli.get_child(0).visible = false
-		resource_display.visible = false
 	if camera_location == "Shop":
-		camera.position.x = 1152
+		camera.position.x = get_viewport().size.x
 		shop_teli.get_child(0).visible = false
-		resource_display.visible = true
 	if camera_location == "Action":
-		camera.position.x = 1152 * 2
+		camera.position.x = get_viewport().size.x * 2
 		action_teli.get_child(0).visible = false
-		resource_display.visible = true
 
 
 func _add_button_data():

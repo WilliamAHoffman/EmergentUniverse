@@ -3,11 +3,10 @@ extends Node
 
 @export var button_manager : Control
 @export var resource_manager : ResourceManager
-@export var EventBus : Node2D
+@export var notif : PackedScene
 var buttons : Dictionary
 var resources : Dictionary
 var button_children : Array
-
 
 func _ready():
 	await owner.ready
@@ -24,6 +23,11 @@ func _physics_process(delta):
 		buttons[button.name].update_text()
 		_update_button_active(button)
 
+
+func _on_button_hovered(button):
+	for node in button.get_children():
+		if node.name == "Notification":
+			node.queue_free()
 
 func _on_button_pressed(event, button):
 	if event is InputEventMouseButton and event.pressed:
@@ -116,22 +120,32 @@ func _import_button_data(file_name):
 func _add_button_data():
 	for button in button_children:
 		button.connect("gui_input",_on_button_pressed.bind(button))
+		button.connect("mouse_entered",_on_button_hovered.bind(button))
 		buttons[button.name].button = button
 		if !buttons[button.name].is_unlocked:
 			button.visible = false
 		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
 
 
+func _add_notif(button : Button):
+	var notif_icon = notif.instantiate()
+	notif_icon.visible = true
+	button.add_child(notif_icon)
+
+
 func _unlock_buttons(button : Button):
+	if buttons[button.name].is_unlocked:
+		return
+	if !buttons[button.name].perma_unlocked:
+		return
 	var criterias_done = 0
-	if !buttons[button.name].is_unlocked and buttons[button.name].perma_unlocked:
-		for resource in buttons[button.name].unlock_criteria:
-			if resource.quantity >= buttons[button.name].unlock_criteria[resource]:
-				criterias_done += 1
-		if criterias_done >= buttons[button.name].unlock_criteria.size():
-			buttons[button.name].is_unlocked = true
-	else:
+	for resource in buttons[button.name].unlock_criteria:
+		if resource.quantity >= buttons[button.name].unlock_criteria[resource]:
+			criterias_done += 1
+	if criterias_done >= buttons[button.name].unlock_criteria.size():
+		buttons[button.name].is_unlocked = true
 		button.visible = true
+		_add_notif(button)
 
 
 func _on_resource_timer_timeout():
@@ -150,7 +164,7 @@ func _update_button_active(button : Button):
 
 
 func _get_buttons():
-	for container in button_manager.get_children():
+	for container in button_manager.get_child(0).get_children():
 		for button in container.get_children():
 			button_children.append(button)
 
@@ -158,7 +172,7 @@ func _get_buttons():
 func _create_buttons():
 	var button_template = preload("res://scenes/button_template.tscn")
 	for button in buttons:
-		for grid in button_manager.get_children():
+		for grid in button_manager.get_child(0).get_children():
 			if grid.name == buttons[button].location:
 				var button_instance = button_template.instantiate()
 				button_instance.name = button
