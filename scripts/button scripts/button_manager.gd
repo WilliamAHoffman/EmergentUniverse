@@ -3,9 +3,11 @@ extends Node
 
 @export var button_manager : Control
 @export var resource_manager : ResourceManager
+@export var EventBus : Node2D
 var buttons : Dictionary
 var resources : Dictionary
 var button_children : Array
+
 
 func _ready():
 	await owner.ready
@@ -112,6 +114,7 @@ func _add_button_data():
 		buttons[button.name].button = button
 		if !buttons[button.name].is_unlocked:
 			button.visible = false
+		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
 
 
 func _unlock_buttons(button : Button):
@@ -155,3 +158,7 @@ func _create_buttons():
 				var button_instance = button_template.instantiate()
 				button_instance.name = button
 				grid.add_child(button_instance)
+
+
+func _on_visibility_changed(location):
+	EventBus.emit_signal("vis_notif", location)

@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=5 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
-[ext_resource type="Script" path="res://scripts/test scripts/test_script.gd" id="3_u8dlc"]
+[ext_resource type="Script" path="res://scripts/teleport scripts/teleporter.gd" id="3_pau4i"]
+[ext_resource type="Script" path="res://scripts/event_bus.gd" id="4_xe6d4"]
 
 [node name="MainScene" type="Node2D"]
 
-[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager")]
+[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager", "EventBus")]
 script = ExtResource("1_u0srf")
 button_manager = NodePath("../ButtonManagerControl")
 resource_manager = NodePath("../ResourceManager")
+EventBus = NodePath("../EventBus")
 
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
@@ -18,17 +20,61 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ResourceGrid" type="GridContainer" parent="ButtonManagerControl"]
 layout_mode = 0
-offset_right = 1154.0
-offset_bottom = 649.0
+offset_top = 63.0
+offset_right = 1152.0
+offset_bottom = 648.0
+columns = 5
+
+[node name="ShopGrid" type="GridContainer" parent="ButtonManagerControl"]
+layout_mode = 0
+offset_left = 1152.0
+offset_top = 63.0
+offset_right = 2304.0
+offset_bottom = 648.0
 columns = 5
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")
 
-[node name="ResourceTimer" type="Timer" parent="."]
+[node name="ResourceTimer" type="Timer" parent="ResourceManager"]
 autostart = true
 
-[node name="TesterNode" type="Node2D" parent="."]
-script = ExtResource("3_u8dlc")
+[node name="PlayerCamera" type="Camera2D" parent="."]
+anchor_mode = 0
 
-[connection signal="timeout" from="ResourceTimer" to="ButtonManager" method="_on_resource_timer_timeout"]
+[node name="TeleportManagerControl" type="Control" parent="PlayerCamera" node_paths=PackedStringArray("camera", "EventBus")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_pau4i")
+camera = NodePath("..")
+EventBus = NodePath("../../EventBus")
+
+[node name="TeleporterGrid" type="GridContainer" parent="PlayerCamera/TeleportManagerControl"]
+layout_direction = 2
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 63.0
+columns = 2
+
+[node name="Shop" type="Button" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Shop
+"
+
+[node name="Resources" type="Button" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Resources
+"
+
+[node name="EventBus" type="Node2D" parent="."]
+script = ExtResource("4_xe6d4")
+
+[connection signal="timeout" from="ResourceManager/ResourceTimer" to="ButtonManager" method="_on_resource_timer_timeout"]
+[connection signal="button_down" from="PlayerCamera/TeleportManagerControl/TeleporterGrid/Shop" to="PlayerCamera/TeleportManagerControl" method="_on_shop_button_down"]
+[connection signal="button_down" from="PlayerCamera/TeleportManagerControl/TeleporterGrid/Resources" to="PlayerCamera/TeleportManagerControl" method="_on_resources_button_down"]
