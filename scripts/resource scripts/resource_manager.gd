@@ -20,29 +20,38 @@ func _import_resources_data(file_name):
 				dict_name = words[1]
 				resources[dict_name] = ResourceData.new()
 				resources[dict_name].dict_name = dict_name
-			if words[0] == "name":
+			elif words[0] == "name":
 				resources[dict_name].name = words[1]
-			if words[0] == "is_unlocked":
+			elif words[0] == "is_unlocked":
 				if words[1] == "false":
 					resources[dict_name].is_unlocked = false
 				else:
 					resources[dict_name].is_unlocked = true
-			if words[0] == "in_quantity_per_click":
+			elif words[0] == "in_quantity_per_click":
 				resources[dict_name].in_quantity_per_click[words[1]] = int(words[2])
-			if words[0] == "out_quantity_per_click":
+			elif words[0] == "out_quantity_per_click":
 				resources[dict_name].out_quantity_per_click[words[1]] = int(words[2])
-			if words[0] == "in_quantity_per_second":
+			elif words[0] == "in_quantity_per_second":
 				resources[dict_name].in_quantity_per_second[words[1]] = int(words[2])
-			if words[0] == "out_quantity_per_second":
+			elif words[0] == "out_quantity_per_second":
 				resources[dict_name].out_quantity_per_second[words[1]] = int(words[2])
-			if words[0] == "in_multi_per_click":
+			elif words[0] == "in_multi_per_click":
 				resources[dict_name].in_multi_per_click[words[1]] = int(words[2])
-			if words[0] == "out_multi_per_click":
+			elif words[0] == "out_multi_per_click":
 				resources[dict_name].out_multi_per_click[words[1]] = int(words[2])
-			if words[0] == "in_multi_per_second":
+			elif words[0] == "in_multi_per_second":
 				resources[dict_name].in_multi_per_second[words[1]] = int(words[2])
-			if words[0] == "out_multi_per_second":
+			elif words[0] == "out_multi_per_second":
 				resources[dict_name].out_multi_per_second[words[1]] = int(words[2])
+			elif words[0] == "quantity":
+				resources[dict_name].quantity = int(words[1])
+			elif words[0] == "total_quantity":
+				resources[dict_name].total_quantity = int(words[1])
+			elif words[0] == "perma_unlocked":
+				if words[1] == "false":
+					resources[dict_name].perma_unlocked = false
+				else:
+					resources[dict_name].perma_unlocked = true
 	file.close()
 
 

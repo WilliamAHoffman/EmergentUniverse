@@ -40,3 +40,4 @@ in_quantity_per_click==base==1
 dict_name==StrangeQuark
 name==Strange Quarks
 in_quantity_per_click==base==1
+perma_unlocked==false

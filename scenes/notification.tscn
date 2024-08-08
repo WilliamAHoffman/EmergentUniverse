@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://nyluktd1xlwm"]
+
+[ext_resource type="Texture2D" uid="uid://dcvi1syoqlrg5" path="res://sprites/icon.svg" id="1_818t2"]
+
+[node name="Notification" type="Sprite2D"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_818t2")
+centered = false

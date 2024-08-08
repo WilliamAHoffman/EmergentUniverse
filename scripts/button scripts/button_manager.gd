@@ -105,6 +105,11 @@ func _import_button_data(file_name):
 				buttons[dict_name].random_resource_efficiency = int(words[1])
 			elif words[0] == "location":
 				buttons[dict_name].location = words[1]
+			elif words[0] == "perma_unlocked":
+				if words[1] == "false":
+					buttons[dict_name].perma_unlocked = false
+				else:
+					buttons[dict_name].perma_unlocked = true
 	file.close()
 
 
@@ -119,7 +124,7 @@ func _add_button_data():
 
 func _unlock_buttons(button : Button):
 	var criterias_done = 0
-	if !buttons[button.name].is_unlocked:
+	if !buttons[button.name].is_unlocked and buttons[button.name].perma_unlocked:
 		for resource in buttons[button.name].unlock_criteria:
 			if resource.quantity >= buttons[button.name].unlock_criteria[resource]:
 				criterias_done += 1

@@ -8,7 +8,7 @@ var quantity := 0
 var total_quantity := 0
 var quantity_per_click := 0
 var quantity_per_second := 0
-var is_unlocked = true
+var perma_unlocked = true
 
 #conditional variables
 

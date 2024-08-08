@@ -5,6 +5,7 @@ var main_text : String
 var is_unlocked = false
 var button : Button
 var location : String
+var perma_unlocked = true
 
 
 #Conditional variables
@@ -79,8 +80,9 @@ func _subtract_cost(times):
 
 
 func _add_resources(quantity, resource):
-	resource.quantity += quantity
-	resource.total_quantity += quantity
+	if resource.perma_unlocked:
+		resource.quantity += quantity
+		resource.total_quantity += quantity
 
 
 func _add_random_resources(quantity_generated_from):
