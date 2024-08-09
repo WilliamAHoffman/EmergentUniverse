@@ -1,0 +1,5 @@
+dict_name==BaseClick
+per_click==1
+
+dict_name==BaseSecond
+per_second==1

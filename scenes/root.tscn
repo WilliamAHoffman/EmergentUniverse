@@ -1,21 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=9 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
 [ext_resource type="Script" path="res://scripts/teleport scripts/teleporter.gd" id="3_pau4i"]
 [ext_resource type="PackedScene" uid="uid://nyluktd1xlwm" path="res://scenes/notification.tscn" id="4_7ft6n"]
-[ext_resource type="Script" path="res://scripts/display_scripts/gridgrid_script.gd" id="5_n3j7y"]
-[ext_resource type="Script" path="res://scripts/display_scripts/teligrid_script.gd" id="5_xif8u"]
-[ext_resource type="Script" path="res://scripts/display_scripts/display_manager.gd" id="6_iwpn0"]
+[ext_resource type="Script" path="res://scripts/display scripts/gridgrid_script.gd" id="5_n3j7y"]
+[ext_resource type="Script" path="res://scripts/display scripts/teligrid_script.gd" id="5_xif8u"]
+[ext_resource type="Script" path="res://scripts/display scripts/display_manager.gd" id="6_iwpn0"]
+[ext_resource type="Script" path="res://scripts/bonus scripts/bonus_manager.gd" id="8_r0b50"]
 
 [node name="MainScene" type="Node2D"]
 
-[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager", "button_timer")]
+[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager", "button_timer", "bonus_manager")]
 script = ExtResource("1_u0srf")
 button_manager = NodePath("../ButtonManagerControl")
 resource_manager = NodePath("../ResourceManager")
 notif = ExtResource("4_7ft6n")
 button_timer = NodePath("ButtonTimer")
+bonus_manager = NodePath("../BonusManager")
 
 [node name="ButtonTimer" type="Timer" parent="ButtonManager"]
 
@@ -99,8 +101,8 @@ anchors_preset = 0
 [node name="GridGrid" type="HBoxContainer" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_top = 64.0
-offset_right = 1980.0
-offset_bottom = 1280.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 script = ExtResource("5_n3j7y")
 
 [node name="ResourceGrid" type="GridContainer" parent="ButtonManagerControl/GridGrid"]
@@ -120,5 +122,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 5
+
+[node name="BonusManager" type="Node2D" parent="."]
+script = ExtResource("8_r0b50")
 
 [connection signal="timeout" from="ButtonManager/ButtonTimer" to="ButtonManager" method="_on_resource_timer_timeout"]

@@ -1,17 +1,14 @@
 dict_name==Time
 name==Time
-in_quantity_per_second==base==1
 
 dict_name==Influence
 name==Influence
-in_quantity_per_click==base==1
 
 dict_name==VirtualParticle
 name==Virtual Particles
 
 dict_name==WaveFunction
 name==Wave Functions
-in_quantity_per_click==base==1
 
 dict_name==UpQuark
 name==UpQuark
@@ -21,23 +18,16 @@ name==DownQuark
 
 dict_name==QuantumFoam
 name==Quantum Foam
-in_quantity_per_click==base==1
-out_quantity_per_second==Influence==1
 
 dict_name==Entanglement
 name==Entanglement
-in_quantity_per_click==base==1
-out_quantity_per_second==WaveFunction==1
 
 dict_name==Proton
 name==Protons
-in_quantity_per_click==base==1
 
 dict_name==Neutron
 name==Neutrons
-in_quantity_per_click==base==1
 
 dict_name==StrangeQuark
 name==Strange Quarks
-in_quantity_per_click==base==1
 perma_unlocked==false

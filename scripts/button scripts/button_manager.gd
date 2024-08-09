@@ -5,17 +5,23 @@ extends Node
 @export var resource_manager : ResourceManager
 @export var notif : PackedScene
 @export var button_timer : Timer
+@export var bonus_manager : Node2D
 var buttons : Dictionary
 var resources : Dictionary
 var button_children : Array
+var bonuses : Dictionary
 
 func _ready():
 	await owner.ready
+	EventBus.connect("activate_button", _send_bonuses)
 	resources = resource_manager.resources
+	bonuses = bonus_manager.bonuses
 	_import_button_data("res://data/button_data.txt")
 	_create_buttons()
 	_get_buttons()
 	_add_button_data()
+	for button in button_children:
+		_update_bonuses(button)
 
 
 func _physics_process(delta):
@@ -30,6 +36,7 @@ func _on_button_hovered(button):
 		if node.name == "Notification":
 			node.queue_free()
 
+
 func _on_button_pressed(event, button):
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
@@ -41,11 +48,9 @@ func _on_button_pressed(event, button):
 
 func _left_click(button):
 	if buttons[button.name].add_resource != null:
-		buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_click, "click")
-		resource_manager._send_upgrades(buttons[button.name].add_resource, resources)
+		buttons[button.name]._on_activate("click")
 	else:
-		buttons[button.name]._on_activate(buttons[button.name].times_activate_per_click, "click")
-	resource_manager._apply_all_upgrades(resources)
+		buttons[button.name]._on_activate("click")
 
 
 func _toggle_all():
@@ -103,10 +108,10 @@ func _import_button_data(file_name):
 					buttons[dict_name].unpause_timer = false
 				else:
 					buttons[dict_name].unpause_timer = true
-			elif words[0] == "times_activate_per_second":
-				buttons[dict_name].times_activate_per_second = int(words[1])
-			elif words[0] == "times_activate_per_click":
-				buttons[dict_name].times_activate_per_click = int(words[1])
+			elif words[0] == "per_second":
+				buttons[dict_name].per_second = int(words[1])
+			elif words[0] == "per_click":
+				buttons[dict_name].per_click = int(words[1])
 			elif words[0] == "add_resource":
 				buttons[dict_name].add_resource = resources[words[1]]
 			elif words[0] == "add_random_resources":
@@ -120,7 +125,37 @@ func _import_button_data(file_name):
 					buttons[dict_name].perma_unlocked = false
 				else:
 					buttons[dict_name].perma_unlocked = true
+			elif words[0] == "bonus":
+				if words[2] == "self":
+					_apply_bonuses(dict_name, bonuses[words[1]], buttons[dict_name])
+				else:
+					_apply_bonuses(dict_name, bonuses[words[1]], buttons[words[2]])
 	file.close()
+
+
+func _send_bonuses(button):
+	for reciever in buttons[button.name].out_bonus:
+		_update_bonuses(reciever.button)
+
+
+func _apply_bonuses(sender : String, bonus : BonusData, reciever : ButtonData):
+	if !reciever.in_bonus.has(sender):
+		reciever.in_bonus[sender] = []
+	reciever.in_bonus[sender].append(bonus)
+	buttons[sender].out_bonus.append(reciever)
+
+
+func _update_bonuses(button : Button):
+	var quantity = 1
+	buttons[button.name].per_click = 0
+	buttons[button.name].per_second = 0
+	for sender in buttons[button.name].in_bonus:
+		if buttons[sender].add_resource != null:
+			if sender != button.name:
+				quantity = buttons[sender].add_resource.quantity
+		for bonus in buttons[button.name].in_bonus[sender]:
+			buttons[button.name].per_click += bonus.per_click * quantity
+			buttons[button.name].per_second += bonus.per_second * quantity
 
 
 func _add_button_data():
@@ -159,14 +194,14 @@ func _on_resource_timer_timeout():
 	for button in button_children:
 		if buttons[button.name].add_resource != null:
 			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
-				buttons[button.name]._on_activate(buttons[button.name].add_resource.quantity_per_second, "second")
+				buttons[button.name]._on_activate("second")
 		else:
-			buttons[button.name]._on_activate(buttons[button.name].times_activate_per_second, "second")
+			buttons[button.name]._on_activate("second")
 
 
 func _update_button_active(button : Button):
 	if buttons[button.name].add_resource != null:
-		if buttons[button.name].add_resource.quantity_per_second > 0:
+		if buttons[button.name].per_second > 0:
 			buttons[button.name].on_timer_active = true
 
 

@@ -8,6 +8,8 @@ var button : Button
 var location : String
 var perma_unlocked = true
 var sprite : Sprite2D
+var in_bonus : Dictionary
+var out_bonus : Array
 
 
 #Conditional variables
@@ -16,8 +18,8 @@ var unlock_criteria : Dictionary #[ResourceData, int]
 var cost_scaling : float
 var on_timer_active = false
 var unpause_timer = false
-var times_activate_per_second = 0
-var times_activate_per_click = 0
+var per_second = 0
+var per_click = 0
 
 #Functional variables
 var add_resource = null #ResourceData #add_resources
@@ -26,21 +28,27 @@ var random_resource_efficiency : int
 
 
 #Necessary Functions
-func _on_activate(quantity, mode):
-	if quantity > 0:
-		if _check_cost(quantity):
-			_subtract_cost(quantity)
-			
+func _on_activate(mode):
+	var quantity = 0
+	if mode == "click":
+		quantity = per_click
+	if mode == "second":
+		quantity = per_second
+	if quantity == 0:
+		return
+	if !_check_cost(quantity):
+		return
+	_subtract_cost(quantity)
+	if add_resource != null:
+		_add_resources(quantity, add_resource)
+	if add_random_resources != null:
 			if add_resource != null:
-				_add_resources(quantity, add_resource)
-				
-			if add_random_resources != null:
-				if add_resource != null:
-					_add_random_resources(quantity)
-				else:
-					_add_random_resources(quantity)
-			if mode == "click":
-				Player.total_clicks += 1
+				_add_random_resources(quantity)
+			else:
+				_add_random_resources(quantity)
+	if mode == "click":
+		Player.total_clicks += 1
+	EventBus.emit_signal("activate_button", button)
 
 
 func update_text():
@@ -48,10 +56,10 @@ func update_text():
 	
 	if add_resource != null:
 		button.text += "\n" + add_resource.name + ": " + str(add_resource.quantity)
-		if(add_resource.quantity_per_click != 0):
-			button.text += "\n" + "Per Click: " + str(add_resource.quantity_per_click)
-		if(add_resource.quantity_per_second != 0):
-			button.text += "\n" + "Per Second: " + str(add_resource.quantity_per_second)
+		if(per_click != 0):
+			button.text += "\n" + "Per Click: " + str(per_click)
+		if(per_second != 0):
+			button.text += "\n" + "Per Second: " + str(per_second)
 	
 	if cost.size() > 0:
 		button.text += "\n cost: "
