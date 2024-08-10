@@ -1,23 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=7 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
-[ext_resource type="Script" path="res://scripts/teleport scripts/teleporter.gd" id="3_pau4i"]
 [ext_resource type="PackedScene" uid="uid://nyluktd1xlwm" path="res://scenes/notification.tscn" id="4_7ft6n"]
-[ext_resource type="Script" path="res://scripts/display scripts/gridgrid_script.gd" id="5_n3j7y"]
-[ext_resource type="Script" path="res://scripts/display scripts/teligrid_script.gd" id="5_xif8u"]
+[ext_resource type="Script" path="res://scripts/camera scripts/camera_script.gd" id="4_t6vcs"]
 [ext_resource type="Script" path="res://scripts/display scripts/display_manager.gd" id="6_iwpn0"]
 [ext_resource type="Script" path="res://scripts/bonus scripts/bonus_manager.gd" id="8_r0b50"]
 
 [node name="MainScene" type="Node2D"]
 
-[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager", "button_timer", "bonus_manager")]
+[node name="ButtonManager" type="Node2D" parent="." node_paths=PackedStringArray("button_manager", "resource_manager", "button_timer", "bonus_manager", "loaded_buttons")]
 script = ExtResource("1_u0srf")
 button_manager = NodePath("../ButtonManagerControl")
 resource_manager = NodePath("../ResourceManager")
 notif = ExtResource("4_7ft6n")
 button_timer = NodePath("ButtonTimer")
 bonus_manager = NodePath("../BonusManager")
+loaded_buttons = NodePath("../ButtonManagerControl/LoadedButtons")
 
 [node name="ButtonTimer" type="Timer" parent="ButtonManager"]
 
@@ -25,56 +24,11 @@ bonus_manager = NodePath("../BonusManager")
 script = ExtResource("2_os0tv")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-anchor_mode = 0
+script = ExtResource("4_t6vcs")
 
-[node name="TeleportManagerControl" type="Control" parent="PlayerCamera" node_paths=PackedStringArray("camera", "shop_teli", "resource_teli", "action_teli")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_pau4i")
-camera = NodePath("..")
-shop_teli = NodePath("TeleporterGrid/Shop")
-resource_teli = NodePath("TeleporterGrid/Resource")
-action_teli = NodePath("TeleporterGrid/Action")
+[node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
 
-[node name="TeleporterGrid" type="GridContainer" parent="PlayerCamera/TeleportManagerControl"]
-layout_direction = 2
-layout_mode = 0
-offset_right = 1980.0
-offset_bottom = 63.0
-columns = 3
-script = ExtResource("5_xif8u")
-
-[node name="Resource" type="Button" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Resources
-"
-
-[node name="Notification" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid/Resource" instance=ExtResource("4_7ft6n")]
-
-[node name="Shop" type="Button" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Shop
-"
-
-[node name="Notification" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid/Shop" instance=ExtResource("4_7ft6n")]
-
-[node name="Action" type="Button" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Actions"
-
-[node name="Notification" parent="PlayerCamera/TeleportManagerControl/TeleporterGrid/Action" instance=ExtResource("4_7ft6n")]
-
-[node name="DisplayManager" type="Control" parent="PlayerCamera" node_paths=PackedStringArray("click_counter", "second_counter")]
+[node name="DisplayManager" type="Control" parent="PlayerCamera/CanvasLayer" node_paths=PackedStringArray("click_counter", "second_counter")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 312.0
@@ -82,28 +36,31 @@ offset_bottom = 381.0
 script = ExtResource("6_iwpn0")
 click_counter = NodePath("ClickCounter")
 second_counter = NodePath("SecondCounter")
+metadata/_edit_use_anchors_ = true
 
-[node name="ClickCounter" type="Label" parent="PlayerCamera/DisplayManager"]
+[node name="ClickCounter" type="Label" parent="PlayerCamera/CanvasLayer/DisplayManager"]
 layout_mode = 0
 offset_right = 181.0
 offset_bottom = 29.0
+metadata/_edit_use_anchors_ = true
 
-[node name="SecondCounter" type="Label" parent="PlayerCamera/DisplayManager"]
+[node name="SecondCounter" type="Label" parent="PlayerCamera/CanvasLayer/DisplayManager"]
 layout_mode = 0
 offset_top = 31.0
 offset_right = 183.0
 offset_bottom = 64.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="GridGrid" type="HBoxContainer" parent="ButtonManagerControl"]
 layout_mode = 0
 offset_top = 64.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-script = ExtResource("5_n3j7y")
+offset_right = 4650.0
+offset_bottom = 737.0
 
 [node name="ResourceGrid" type="GridContainer" parent="ButtonManagerControl/GridGrid"]
 layout_mode = 2
@@ -122,6 +79,74 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 5
+
+[node name="LoadedButtons" type="Node2D" parent="ButtonManagerControl"]
+
+[node name="ResourceTime" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = 912.0
+offset_top = -1894.0
+offset_right = 1335.0
+offset_bottom = -1635.0
+
+[node name="ResourceInfluence" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -432.0
+offset_top = -738.0
+offset_right = -9.0
+offset_bottom = -479.0
+
+[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -1032.0
+offset_top = -186.0
+offset_right = -609.0
+offset_bottom = 73.0
+
+[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -338.0
+offset_top = -1732.0
+offset_right = 85.0
+offset_bottom = -1473.0
+
+[node name="ActionQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = 1325.0
+offset_top = -1333.0
+offset_right = 1748.0
+offset_bottom = -1074.0
+
+[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = 1429.0
+offset_top = -693.0
+offset_right = 1852.0
+offset_bottom = -434.0
+
+[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -1528.0
+offset_top = -751.0
+offset_right = -1105.0
+offset_bottom = -492.0
+
+[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = 213.0
+offset_top = -1156.0
+offset_right = 636.0
+offset_bottom = -897.0
+
+[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -1092.0
+offset_top = -1181.0
+offset_right = -669.0
+offset_bottom = -922.0
+
+[node name="ResourceProton" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -1672.0
+offset_top = -1561.0
+offset_right = -1249.0
+offset_bottom = -1302.0
+
+[node name="ResourceNeutron" type="Button" parent="ButtonManagerControl/LoadedButtons"]
+offset_left = -1375.0
+offset_top = -2182.0
+offset_right = -952.0
+offset_bottom = -1923.0
 
 [node name="BonusManager" type="Node2D" parent="."]
 script = ExtResource("8_r0b50")
