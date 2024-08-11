@@ -18,7 +18,6 @@ func _ready():
 	resources = resource_manager.resources
 	bonuses = bonus_manager.bonuses
 	_import_button_data("res://data/button_data.txt")
-	_create_buttons()
 	_get_buttons()
 	_add_button_data()
 	for button in button_children:
@@ -160,7 +159,6 @@ func _update_bonuses(button : Button):
 
 
 func _add_button_data():
-	
 	for button in button_children:
 		print(button)
 		button.connect("gui_input",_on_button_pressed.bind(button))
@@ -209,27 +207,8 @@ func _update_button_active(button : Button):
 
 
 func _get_buttons():
-	for container in button_manager.get_child(0).get_children():
-		for button in container.get_children():
-			button_children.append(button)
 	for button in loaded_buttons.get_children():
 		button_children.append(button)
-
-
-func _create_buttons():
-	var button_template = preload("res://scenes/button_template.tscn")
-	var is_preloaded = false
-	for button in buttons:
-		is_preloaded = false
-		for item_button in loaded_buttons.get_children():
-			if item_button.name == button:
-				is_preloaded = true
-		if !is_preloaded:
-			for grid in button_manager.get_child(0).get_children():
-				if grid.name == buttons[button].location:
-					var button_instance = button_template.instantiate()
-					button_instance.name = button
-					grid.add_child(button_instance)
 
 
 func _on_visibility_changed(location):
