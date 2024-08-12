@@ -160,7 +160,6 @@ func _update_bonuses(button : Button):
 
 func _add_button_data():
 	for button in button_children:
-		print(button)
 		button.connect("gui_input",_on_button_pressed.bind(button))
 		button.connect("mouse_entered",_on_button_hovered.bind(button))
 		buttons[button.name].button = button
@@ -180,14 +179,16 @@ func _unlock_buttons(button : Button):
 		return
 	if !buttons[button.name].perma_unlocked:
 		return
-	var criterias_done = 0
+	var unlock = true
 	for resource in buttons[button.name].unlock_criteria:
-		if resource.quantity >= buttons[button.name].unlock_criteria[resource]:
-			criterias_done += 1
-	if criterias_done >= buttons[button.name].unlock_criteria.size():
+		if resource.quantity <= buttons[button.name].unlock_criteria[resource]:
+			unlock = false
+			break
+	if unlock:
 		buttons[button.name].is_unlocked = true
 		button.visible = true
 		_add_notif(button)
+		EventBus.emit_signal("unlock_button", button)
 
 
 func _on_resource_timer_timeout():
