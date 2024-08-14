@@ -7,16 +7,34 @@ var lines : Array
 func _ready():
 	buttons = button_manager.buttons
 	await owner.ready
-	EventBus.connect("unlock_button", _create_lines)
+	EventBus.connect("unlock_button", _create_all_lines)
 
 
-func _create_lines(in_button : Button):
-	for cost in buttons[in_button.name].cost:
+func _check_all_lines():
+	for line in lines:
+		if !line.line.visible:
+			print(line)
+			print(line.sender)
+			print(line.reciever)
+			if line.sender.is_unlocked and line.reciever.is_unlocked:
+				line.line.visible = true
+
+
+func _create_all_lines(in_button):
+	_create_lines(in_button, buttons[in_button.name].cost, "cost", Color(96,96,96))
+	_create_lines(in_button, buttons[in_button.name].add_random_resources, "random", Color(102,0,102))
+	
+	_check_all_lines()
+
+
+func _create_lines(in_button : Button, recievers, type : String, color : Color):
+	for item in recievers:
 		var newline = LineData.new()
 		newline.line = Line2D.new()
-		newline.reciever = buttons["Resource" + str(cost.dict_name)]
+		newline.reciever = buttons["Resource" + str(item.dict_name)]
 		newline.sender = buttons[in_button.name]
-		newline.type = "cost"
+		newline.type = type
+		newline.line.default_color = color
 		_draw_line(newline.sender.button, newline.reciever.button, newline.line)
 		lines.append(newline)
 
@@ -26,4 +44,5 @@ func _draw_line(sender : Button, recieve : Button, line : Line2D):
 	line.add_point(start)
 	line.add_point(end)
 	line.z_index = -1
+	line.visible = false
 	add_child(line)

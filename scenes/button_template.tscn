@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://drw5hl6heh8h0"]
-
-[node name="Node2D" type="Button"]
-offset_right = 200.0
-offset_bottom = 200.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true

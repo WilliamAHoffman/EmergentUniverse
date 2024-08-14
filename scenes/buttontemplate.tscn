@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl6d75n82h72j"]
+
+[ext_resource type="Texture2D" uid="uid://dcvi1syoqlrg5" path="res://sprites/icon.svg" id="1_cpg6o"]
+
+[node name="Button" type="Button"]
+offset_right = 500.0
+offset_bottom = 500.0
+size_flags_horizontal = 4
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 34
+text = "hello"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(255.12, 249)
+scale = Vector2(5, 4.778)
+texture = ExtResource("1_cpg6o")

@@ -43,90 +43,6 @@ layout_mode = 3
 anchors_preset = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="LoadedButtons" type="Node2D" parent="ButtonManagerControl"]
-
-[node name="ResourceTime" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -1152.0
-offset_top = -664.0
-offset_right = -729.0
-offset_bottom = -405.0
-size_flags_horizontal = 4
-text = "time"
-
-[node name="ResourceInfluence" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -3055.0
-offset_top = -1764.0
-offset_right = -2632.0
-offset_bottom = -1505.0
-text = "influence"
-
-[node name="ResourceWaveFunction" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -1127.0
-offset_top = 982.0
-offset_right = -704.0
-offset_bottom = 1241.0
-text = "wavefunction"
-
-[node name="ResourceVirtualParticle" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -1884.0
-offset_top = -499.0
-offset_right = -1461.0
-offset_bottom = -240.0
-text = "virtualparticle"
-
-[node name="ActionQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -3926.0
-offset_top = -564.0
-offset_right = -3503.0
-offset_bottom = -305.0
-text = "quark"
-
-[node name="ResourceUpQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -2272.0
-offset_top = -1421.0
-offset_right = -1849.0
-offset_bottom = -1162.0
-text = "upquark
-"
-
-[node name="ResourceDownQuark" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -2032.0
-offset_top = 545.0
-offset_right = -1609.0
-offset_bottom = 804.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "downquark"
-
-[node name="ShopQuantumFoam" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -2913.0
-offset_top = 772.0
-offset_right = -2490.0
-offset_bottom = 1031.0
-text = "quantumfoam
-"
-
-[node name="ShopEntanglement" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -3938.0
-offset_top = 796.0
-offset_right = -3515.0
-offset_bottom = 1055.0
-text = "entanglement"
-
-[node name="ResourceProton" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -4075.0
-offset_top = -1301.0
-offset_right = -3652.0
-offset_bottom = -1042.0
-text = "proton"
-
-[node name="ResourceNeutron" type="Button" parent="ButtonManagerControl/LoadedButtons"]
-offset_left = -1145.0
-offset_top = -1121.0
-offset_right = -722.0
-offset_bottom = -862.0
-text = "neutron"
-
 [node name="ButtonManager" type="Node2D" parent="ButtonManagerControl" node_paths=PackedStringArray("button_manager", "resource_manager", "button_timer", "bonus_manager", "loaded_buttons")]
 script = ExtResource("1_u0srf")
 button_manager = NodePath("..")
@@ -141,6 +57,8 @@ loaded_buttons = NodePath("../LoadedButtons")
 [node name="LineManager" type="Node2D" parent="ButtonManagerControl/ButtonManager" node_paths=PackedStringArray("button_manager")]
 script = ExtResource("5_mawb6")
 button_manager = NodePath("..")
+
+[node name="LoadedButtons" type="Node2D" parent="ButtonManagerControl"]
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_os0tv")

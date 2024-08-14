@@ -9,8 +9,8 @@ extends Node
 @export var loaded_buttons : Node2D
 var buttons : Dictionary
 var resources : Dictionary
-var button_children : Array
 var bonuses : Dictionary
+var button_pos : Dictionary
 
 func _ready():
 	await owner.ready
@@ -18,14 +18,14 @@ func _ready():
 	resources = resource_manager.resources
 	bonuses = bonus_manager.bonuses
 	_import_button_data("res://data/button_data.txt")
-	_get_buttons()
+	_create_buttons()
 	_add_button_data()
-	for button in button_children:
+	for button in loaded_buttons.get_children():
 		_update_bonuses(button)
 
 
 func _physics_process(delta):
-	for button in button_children:
+	for button in loaded_buttons.get_children():
 		_unlock_buttons(button)
 		buttons[button.name].update_text()
 		_update_button_active(button)
@@ -58,7 +58,7 @@ func _toggle_all():
 		button_timer.start()
 	if !buttons["ResourceTime"].unpause_timer:
 		button_timer.stop()
-	for button in button_children:
+	for button in loaded_buttons.get_children():
 		buttons[button.name].unpause_timer = buttons["ResourceTime"].unpause_timer
 
 
@@ -130,6 +130,8 @@ func _import_button_data(file_name):
 					_apply_bonuses(dict_name, bonuses[words[1]], buttons[dict_name])
 				else:
 					_apply_bonuses(dict_name, bonuses[words[1]], buttons[words[2]])
+			elif words[0] == "pos":
+				button_pos[dict_name] = Vector2(int(words[1]), int(words[2]))
 	file.close()
 
 
@@ -159,7 +161,7 @@ func _update_bonuses(button : Button):
 
 
 func _add_button_data():
-	for button in button_children:
+	for button in loaded_buttons.get_children():
 		button.connect("gui_input",_on_button_pressed.bind(button))
 		button.connect("mouse_entered",_on_button_hovered.bind(button))
 		buttons[button.name].button = button
@@ -193,7 +195,7 @@ func _unlock_buttons(button : Button):
 
 func _on_resource_timer_timeout():
 	Player.total_seconds += 1
-	for button in button_children:
+	for button in loaded_buttons.get_children():
 		if buttons[button.name].add_resource != null:
 			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
 				buttons[button.name]._on_activate("second")
@@ -207,9 +209,12 @@ func _update_button_active(button : Button):
 			buttons[button.name].on_timer_active = true
 
 
-func _get_buttons():
-	for button in loaded_buttons.get_children():
-		button_children.append(button)
+func _create_buttons():
+	for button in buttons:
+		var template = preload("res://scenes/buttontemplate.tscn").instantiate()
+		template.name = button
+		loaded_buttons.add_child(template)
+		template.position = button_pos[button]
 
 
 func _on_visibility_changed(location):
