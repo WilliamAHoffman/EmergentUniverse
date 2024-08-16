@@ -5,6 +5,7 @@ class_name ButtonData
 var main_text : String
 var is_unlocked = false
 var button : Button
+var label : Label
 var location : String
 var perma_unlocked = true
 var sprite : Sprite2D
@@ -52,32 +53,32 @@ func _on_activate(mode):
 
 
 func update_text():
-	button.text = main_text
+	label.text = main_text
 	
 	if add_resource != null:
-		button.text += "\n" + add_resource.name + ": " + str(add_resource.quantity)
+		label.text += "\n" + add_resource.name + ": " + str(add_resource.quantity)
 		if(per_click != 0):
-			button.text += "\n" + "Per Click: " + str(per_click)
+			label.text += "\n" + "Per Click: " + str(per_click)
 		if(per_second != 0):
-			button.text += "\n" + "Per Second: " + str(per_second)
+			label.text += "\n" + "Per Second: " + str(per_second)
 	
 	if cost.size() > 0:
-		button.text += "\n cost: "
+		label.text += "\n cost: "
 		for resource in cost:
-			button.text += resource.name + " " + str(cost[resource]) +", "
-		button.text = button.text.substr(0,button.text.length()-2)
+			label.text += resource.name + " " + str(cost[resource]) +", "
+		label.text = label.text.substr(0,label.text.length()-2)
 	
 	if on_timer_active:
-		button.text += "\n active: " + str(unpause_timer)
+		label.text += "\n active: " + str(unpause_timer)
 
 
 #Optional Functions
 func _check_cost(times):
-	var cost_complete = 0
+	var cost_complete = true
 	for resource in cost:
-		if resource.quantity >= cost[resource] * times:
-			cost_complete += 1
-	if cost_complete == cost.size():
+		if resource.quantity < cost[resource] * times:
+			cost_complete = false
+	if cost_complete:
 		return true
 	return false
 
@@ -104,4 +105,3 @@ func _add_random_resources(quantity_generated_from):
 	for resource in add_random_resources:
 		if rand_int in range(add_random_resources[resource][0], add_random_resources[resource][1]):
 			_add_resources(add_random_resources[resource][2] * quantity_multi, resource)
-

@@ -1,18 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl6d75n82h72j"]
+[gd_scene format=3 uid="uid://cl6d75n82h72j"]
 
-[ext_resource type="Texture2D" uid="uid://dcvi1syoqlrg5" path="res://sprites/icon.svg" id="1_cpg6o"]
+[node name="Button" type="Control"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 3
+anchor_right = 0.26
+anchor_bottom = 0.463
+offset_right = 0.799957
+offset_bottom = -0.0400391
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_type_variation = &"FlatButton"
 
-[node name="Button" type="Button"]
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+z_as_relative = false
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
 offset_right = 500.0
 offset_bottom = 500.0
-size_flags_horizontal = 4
-theme_type_variation = &"FlatButton"
-theme_override_font_sizes/font_size = 34
-text = "hello"
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.194349, 0.194349, 0.194349, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-z_index = -1
-position = Vector2(255.12, 249)
-scale = Vector2(5, 4.778)
-texture = ExtResource("1_cpg6o")
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -21.0
+offset_right = 170.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "helllllllllllllllllllllooooooo"

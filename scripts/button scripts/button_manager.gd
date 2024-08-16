@@ -11,21 +11,24 @@ var buttons : Dictionary
 var resources : Dictionary
 var bonuses : Dictionary
 var button_pos : Dictionary
+var button_children : Array
 
 func _ready():
 	await owner.ready
 	EventBus.connect("activate_button", _send_bonuses)
+	EventBus.connect("gain_resource", _is_affordable)
 	resources = resource_manager.resources
 	bonuses = bonus_manager.bonuses
 	_import_button_data("res://data/button_data.txt")
 	_create_buttons()
+	_get_child_buttons()
 	_add_button_data()
-	for button in loaded_buttons.get_children():
+	for button in button_children:
 		_update_bonuses(button)
 
 
 func _physics_process(delta):
-	for button in loaded_buttons.get_children():
+	for button in button_children:
 		_unlock_buttons(button)
 		buttons[button.name].update_text()
 		_update_button_active(button)
@@ -161,12 +164,13 @@ func _update_bonuses(button : Button):
 
 
 func _add_button_data():
-	for button in loaded_buttons.get_children():
+	for button in button_children:
 		button.connect("gui_input",_on_button_pressed.bind(button))
 		button.connect("mouse_entered",_on_button_hovered.bind(button))
 		buttons[button.name].button = button
+		buttons[button.name].label = button.get_child(0)
 		if !buttons[button.name].is_unlocked:
-			button.visible = false
+			button.get_parent().visible = false
 		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
 
 
@@ -183,19 +187,19 @@ func _unlock_buttons(button : Button):
 		return
 	var unlock = true
 	for resource in buttons[button.name].unlock_criteria:
-		if resource.quantity <= buttons[button.name].unlock_criteria[resource]:
+		if resource.quantity < buttons[button.name].unlock_criteria[resource]:
 			unlock = false
 			break
 	if unlock:
 		buttons[button.name].is_unlocked = true
-		button.visible = true
+		button.get_parent().visible = true
 		_add_notif(button)
 		EventBus.emit_signal("unlock_button", button)
 
 
 func _on_resource_timer_timeout():
 	Player.total_seconds += 1
-	for button in loaded_buttons.get_children():
+	for button in button_children:
 		if buttons[button.name].add_resource != null:
 			if buttons[button.name].unpause_timer and buttons[button.name].on_timer_active:
 				buttons[button.name]._on_activate("second")
@@ -213,9 +217,24 @@ func _create_buttons():
 	for button in buttons:
 		var template = preload("res://scenes/buttontemplate.tscn").instantiate()
 		template.name = button
+		template.get_child(1).name = button
 		loaded_buttons.add_child(template)
 		template.position = button_pos[button]
 
 
 func _on_visibility_changed(location):
 	EventBus.emit_signal("vis_notif", location)
+
+
+func _is_affordable(resource):
+	for in_button in button_children:
+		var button = buttons[in_button.name]
+		if button._check_cost(button.per_click):
+			button.label.set("theme_override_colors/font_color",Color(255,255,255))
+		else:
+			button.label.set("theme_override_colors/font_color",Color(100,0,0))
+
+func _get_child_buttons():
+	button_children = []
+	for template in loaded_buttons.get_children():
+		button_children.append(template.get_child(1))

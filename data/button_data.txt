@@ -99,4 +99,3 @@ add_resource==StrangeQuark
 location==ResourceGrid
 perma_unlocked==false
 pos==0==0
-
