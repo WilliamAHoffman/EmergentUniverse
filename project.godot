@@ -17,8 +17,8 @@ config/icon="res://sprites/icon.svg"
 
 [autoload]
 
-Player="*res://scripts/player scripts/player.gd"
-EventBus="*res://scripts/event_bus.gd"
+Player="*res://scripts/global_loaded/player scripts/player.gd"
+EventBus="*res://scripts/global_loaded/event_bus.gd"
 
 [display]
 
@@ -32,6 +32,7 @@ folder_colors={
 "res://data/": "red",
 "res://scenes/": "green",
 "res://scripts/": "pink",
+"res://scripts/global_loaded/": "red",
 "res://sprites/": "yellow"
 }
 

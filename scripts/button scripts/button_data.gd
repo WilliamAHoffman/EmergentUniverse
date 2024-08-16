@@ -11,7 +11,7 @@ var perma_unlocked = true
 var sprite : Sprite2D
 var in_bonus : Dictionary
 var out_bonus : Array
-
+var position : Vector2
 
 #Conditional variables
 var cost : Dictionary #[ResourceData, int]
@@ -63,13 +63,13 @@ func update_text():
 			label.text += "\n" + "Per Second: " + str(per_second)
 	
 	if cost.size() > 0:
-		label.text += "\n cost: "
+		label.text += "\ncost: "
 		for resource in cost:
 			label.text += resource.name + " " + str(cost[resource]) +", "
 		label.text = label.text.substr(0,label.text.length()-2)
 	
 	if on_timer_active:
-		label.text += "\n active: " + str(unpause_timer)
+		label.text += "\nactive: " + str(unpause_timer)
 
 
 #Optional Functions

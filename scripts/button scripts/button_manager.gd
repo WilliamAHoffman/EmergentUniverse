@@ -10,7 +10,6 @@ extends Node
 var buttons : Dictionary
 var resources : Dictionary
 var bonuses : Dictionary
-var button_pos : Dictionary
 var button_children : Array
 
 func _ready():
@@ -25,6 +24,9 @@ func _ready():
 	_add_button_data()
 	for button in button_children:
 		_update_bonuses(button)
+		print(button)
+	for button in buttons:
+		print(button)
 
 
 func _physics_process(delta):
@@ -134,7 +136,7 @@ func _import_button_data(file_name):
 				else:
 					_apply_bonuses(dict_name, bonuses[words[1]], buttons[words[2]])
 			elif words[0] == "pos":
-				button_pos[dict_name] = Vector2(int(words[1]), int(words[2]))
+				buttons[dict_name].position = Vector2(int(words[1]), int(words[2]))
 	file.close()
 
 
@@ -168,7 +170,7 @@ func _add_button_data():
 		button.connect("gui_input",_on_button_pressed.bind(button))
 		button.connect("mouse_entered",_on_button_hovered.bind(button))
 		buttons[button.name].button = button
-		buttons[button.name].label = button.get_child(0)
+		buttons[button.name].label = button.get_parent().get_child(0)
 		if !buttons[button.name].is_unlocked:
 			button.get_parent().visible = false
 		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
@@ -217,9 +219,9 @@ func _create_buttons():
 	for button in buttons:
 		var template = preload("res://scenes/buttontemplate.tscn").instantiate()
 		template.name = button
-		template.get_child(1).name = button
+		template.get_child(0).get_child(2).name = button
 		loaded_buttons.add_child(template)
-		template.position = button_pos[button]
+		template.position = buttons[button].position
 
 
 func _on_visibility_changed(location):
@@ -234,7 +236,8 @@ func _is_affordable(resource):
 		else:
 			button.label.set("theme_override_colors/font_color",Color(100,0,0))
 
+
 func _get_child_buttons():
 	button_children = []
 	for template in loaded_buttons.get_children():
-		button_children.append(template.get_child(1))
+		button_children.append(template.get_child(0).get_child(2))

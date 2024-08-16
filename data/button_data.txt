@@ -58,7 +58,7 @@ cost_scaling==0.2
 location==ShopGrid
 bonus==BaseClick==self
 bonus==BaseSecond==ResourceInfluence
-pos==3000==-2000
+pos==2000==-1000
 
 dict_name==ShopEntanglement
 add_resource==Entanglement
@@ -70,7 +70,7 @@ cost_scaling==0.2
 location==ShopGrid
 bonus==BaseClick==self
 bonus==BaseSecond==ResourceWaveFunction
-pos==3000==-3000
+pos==3000==-1000
 
 dict_name==ResourceProton
 add_resource==Proton
@@ -81,7 +81,7 @@ unlock_criteria==UpQuark==2
 unlock_criteria==DownQuark==1
 location==ResourceGrid
 bonus==BaseClick==self
-pos==5000==5000
+pos==-2000==1000
 
 dict_name==ResourceNeutron
 add_resource==Neutron
@@ -92,7 +92,7 @@ unlock_criteria==UpQuark==1
 unlock_criteria==DownQuark==2
 location==ResourceGrid
 bonus==BaseClick==self
-pos==5000==6000
+pos==-2000==2000
 
 dict_name==ResourceStrangeQuark
 add_resource==StrangeQuark
