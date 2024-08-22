@@ -1,6 +1,7 @@
-extends Node2D
+extends Node
 
 signal vis_notif(location)
 signal gain_resource(resource)
 signal activate_button(button)
 signal unlock_button(button)
+signal save(filename)

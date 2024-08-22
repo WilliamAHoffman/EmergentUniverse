@@ -19,6 +19,7 @@ config/icon="res://sprites/icon.svg"
 
 Player="*res://scripts/global_loaded/player scripts/player.gd"
 EventBus="*res://scripts/global_loaded/event_bus.gd"
+SaveScript="*res://scripts/global_loaded/save_script.gd"
 
 [display]
 

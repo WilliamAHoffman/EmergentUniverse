@@ -12,37 +12,34 @@ var resources : Dictionary
 var bonuses : Dictionary
 var button_children : Array
 
-func _ready():
+func _ready() -> void:
 	await owner.ready
 	EventBus.connect("activate_button", _send_bonuses)
 	EventBus.connect("gain_resource", _is_affordable)
 	resources = resource_manager.resources
 	bonuses = bonus_manager.bonuses
-	_import_button_data("res://data/button_data.txt")
+	_import_button_data("res://data/base/button_data.txt")
 	_create_buttons()
 	_get_child_buttons()
 	_add_button_data()
 	for button in button_children:
 		_update_bonuses(button)
-		print(button)
-	for button in buttons:
-		print(button)
 
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	for button in button_children:
 		_unlock_buttons(button)
 		buttons[button.name].update_text()
 		_update_button_active(button)
 
 
-func _on_button_hovered(button):
+func _on_button_hovered(button) -> void:
 	for node in button.get_children():
 		if node.name == "Notification":
 			node.queue_free()
 
 
-func _on_button_pressed(event, button):
+func _on_button_pressed(event, button) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
@@ -51,14 +48,14 @@ func _on_button_pressed(event, button):
 				_right_click(button)
 
 
-func _left_click(button):
+func _left_click(button) -> void:
 	if buttons[button.name].add_resource != null:
 		buttons[button.name]._on_activate("click")
 	else:
 		buttons[button.name]._on_activate("click")
 
 
-func _toggle_all():
+func _toggle_all() -> void:
 	if buttons["ResourceTime"].unpause_timer:
 		button_timer.start()
 	if !buttons["ResourceTime"].unpause_timer:
@@ -67,7 +64,7 @@ func _toggle_all():
 		buttons[button.name].unpause_timer = buttons["ResourceTime"].unpause_timer
 
 
-func _right_click(button):
+func _right_click(button) -> void:
 	if buttons[button.name].on_timer_active:
 		if buttons[button.name].unpause_timer:
 			buttons[button.name].unpause_timer = false
@@ -80,7 +77,7 @@ func _right_click(button):
 			_toggle_all()
 
 
-func _import_button_data(file_name):
+func _import_button_data(file_name) -> void:
 	var file = FileAccess.open(file_name, FileAccess.READ)
 	var dict_name = ""
 	while !file.eof_reached():
@@ -140,19 +137,19 @@ func _import_button_data(file_name):
 	file.close()
 
 
-func _send_bonuses(button):
+func _send_bonuses(button) -> void:
 	for reciever in buttons[button.name].out_bonus:
 		_update_bonuses(reciever.button)
 
 
-func _apply_bonuses(sender : String, bonus : BonusData, reciever : ButtonData):
+func _apply_bonuses(sender : String, bonus : BonusData, reciever : ButtonData) -> void:
 	if !reciever.in_bonus.has(sender):
 		reciever.in_bonus[sender] = []
 	reciever.in_bonus[sender].append(bonus)
 	buttons[sender].out_bonus.append(reciever)
 
 
-func _update_bonuses(button : Button):
+func _update_bonuses(button : Button) -> void:
 	var quantity = 1
 	buttons[button.name].per_click = 0
 	buttons[button.name].per_second = 0
@@ -165,7 +162,7 @@ func _update_bonuses(button : Button):
 			buttons[button.name].per_second += bonus.per_second * quantity
 
 
-func _add_button_data():
+func _add_button_data() -> void:
 	for button in button_children:
 		button.connect("gui_input",_on_button_pressed.bind(button))
 		button.connect("mouse_entered",_on_button_hovered.bind(button))
@@ -176,13 +173,13 @@ func _add_button_data():
 		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
 
 
-func _add_notif(button : Button):
+func _add_notif(button : Button) -> void:
 	var notif_icon = notif.instantiate()
 	notif_icon.visible = true
 	button.add_child(notif_icon)
 
 
-func _unlock_buttons(button : Button):
+func _unlock_buttons(button : Button) -> void:
 	if buttons[button.name].is_unlocked:
 		return
 	if !buttons[button.name].perma_unlocked:
@@ -199,7 +196,7 @@ func _unlock_buttons(button : Button):
 		EventBus.emit_signal("unlock_button", button)
 
 
-func _on_resource_timer_timeout():
+func _on_resource_timer_timeout() -> void:
 	Player.total_seconds += 1
 	for button in button_children:
 		if buttons[button.name].add_resource != null:
@@ -209,13 +206,13 @@ func _on_resource_timer_timeout():
 			buttons[button.name]._on_activate("second")
 
 
-func _update_button_active(button : Button):
+func _update_button_active(button : Button) -> void:
 	if buttons[button.name].add_resource != null:
 		if buttons[button.name].per_second > 0:
 			buttons[button.name].on_timer_active = true
 
 
-func _create_buttons():
+func _create_buttons() -> void:
 	for button in buttons:
 		var template = preload("res://scenes/buttontemplate.tscn").instantiate()
 		template.name = button
@@ -224,11 +221,11 @@ func _create_buttons():
 		template.position = buttons[button].position
 
 
-func _on_visibility_changed(location):
+func _on_visibility_changed(location) -> void:
 	EventBus.emit_signal("vis_notif", location)
 
 
-func _is_affordable(resource):
+func _is_affordable(resource) -> void:
 	for in_button in button_children:
 		var button = buttons[in_button.name]
 		if button._check_cost(button.per_click):
@@ -237,7 +234,7 @@ func _is_affordable(resource):
 			button.label.set("theme_override_colors/font_color",Color(100,0,0))
 
 
-func _get_child_buttons():
+func _get_child_buttons() -> void:
 	button_children = []
 	for template in loaded_buttons.get_children():
 		button_children.append(template.get_child(0).get_child(2))

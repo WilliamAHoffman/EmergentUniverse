@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cl6d75n82h72j"]
 
-[node name="Button" type="Control"]
+[node name="ButtonControl" type="Control"]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
 anchor_right = 0.26

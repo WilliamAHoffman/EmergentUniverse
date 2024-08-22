@@ -6,11 +6,11 @@ var screen_start_position
 var dragging = false
 
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	_zoom()
 
 
-func _zoom():
+func _zoom() -> void:
 	if Input.is_action_just_released('wheel_down'):
 		if get_zoom() - Vector2(0.1, 0.1) != Vector2(0,0):
 			set_zoom(get_zoom() - Vector2(0.1, 0.1))
@@ -19,7 +19,7 @@ func _zoom():
 			set_zoom(get_zoom() + Vector2(0.1, 0.1))
 
 
-func _input(event):
+func _input(event) -> void:
 	if event.is_action("drag"):
 		if event.is_pressed():
 			mouse_start_pos = event.position

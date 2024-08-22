@@ -1,12 +1,13 @@
-extends Node2D
+class_name BonusManager
+extends Node
 
 var bonuses : Dictionary
 
 func _ready():
-	_import_bonus_data("res://data/bonus_data.txt")
+	_import_bonus_data("res://data/base/bonus_data.txt")
 
 
-func _import_bonus_data(file_name):
+func _import_bonus_data(file_name) -> void:
 	var file = FileAccess.open(file_name, FileAccess.READ)
 	var dict_name = ""
 	while !file.eof_reached():

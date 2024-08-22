@@ -29,7 +29,7 @@ var random_resource_efficiency : int
 
 
 #Necessary Functions
-func _on_activate(mode):
+func _on_activate(mode) -> void:
 	var quantity = 0
 	if mode == "click":
 		quantity = per_click
@@ -52,7 +52,7 @@ func _on_activate(mode):
 	EventBus.emit_signal("activate_button", button)
 
 
-func update_text():
+func update_text() -> void:
 	label.text = main_text
 	
 	if add_resource != null:
@@ -73,7 +73,7 @@ func update_text():
 
 
 #Optional Functions
-func _check_cost(times):
+func _check_cost(times) -> bool:
 	var cost_complete = true
 	for resource in cost:
 		if resource.quantity < cost[resource] * times:
@@ -83,7 +83,7 @@ func _check_cost(times):
 	return false
 
 
-func _subtract_cost(times):
+func _subtract_cost(times) -> void:
 	for resource in cost:
 		resource.quantity -= cost[resource] * times
 	
@@ -92,14 +92,14 @@ func _subtract_cost(times):
 		cost[resource] = scale
 
 
-func _add_resources(quantity, resource):
+func _add_resources(quantity, resource) -> void:
 	if resource.perma_unlocked:
 		resource.quantity += quantity
 		resource.total_quantity += quantity
 		EventBus.emit_signal("gain_resource", resource)
 
 
-func _add_random_resources(quantity_generated_from):
+func _add_random_resources(quantity_generated_from) -> void:
 	var quantity_multi = (quantity_generated_from * (random_resource_efficiency/100)) + 1
 	var rand_int = randi_range(0, 100)
 	for resource in add_random_resources:

@@ -2,7 +2,7 @@ dict_name==ResourceTime
 add_resource==Time
 location==ResourceGrid
 bonus==BaseSecond==self
-pos==0==0
+pos==0==-1000
 
 dict_name==ResourceInfluence
 add_resource==Influence

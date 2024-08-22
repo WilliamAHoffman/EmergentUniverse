@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=9 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
+[ext_resource type="Script" path="res://scripts/display scripts/save_manager.gd" id="3_cfuqo"]
 [ext_resource type="PackedScene" uid="uid://nyluktd1xlwm" path="res://scenes/notification.tscn" id="4_7ft6n"]
 [ext_resource type="Script" path="res://scripts/camera scripts/camera_script.gd" id="4_t6vcs"]
 [ext_resource type="Script" path="res://scripts/button scripts/line_manager.gd" id="5_mawb6"]
@@ -13,9 +14,9 @@
 [node name="PlayerCamera" type="Camera2D" parent="."]
 script = ExtResource("4_t6vcs")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
+[node name="PlayerUI" type="CanvasLayer" parent="PlayerCamera"]
 
-[node name="DisplayManager" type="Control" parent="PlayerCamera/CanvasLayer" node_paths=PackedStringArray("click_counter", "second_counter", "coordinates", "camera")]
+[node name="DisplayManager" type="Control" parent="PlayerCamera/PlayerUI" node_paths=PackedStringArray("click_counter", "second_counter", "coordinates", "camera")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 312.0
@@ -27,7 +28,7 @@ coordinates = NodePath("VBoxContainer/Coordinates")
 camera = NodePath("../..")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerCamera/CanvasLayer/DisplayManager"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerCamera/PlayerUI/DisplayManager"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,16 +36,51 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ClickCounter" type="Label" parent="PlayerCamera/CanvasLayer/DisplayManager/VBoxContainer"]
+[node name="ClickCounter" type="Label" parent="PlayerCamera/PlayerUI/DisplayManager/VBoxContainer"]
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="SecondCounter" type="Label" parent="PlayerCamera/CanvasLayer/DisplayManager/VBoxContainer"]
+[node name="SecondCounter" type="Label" parent="PlayerCamera/PlayerUI/DisplayManager/VBoxContainer"]
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Coordinates" type="Label" parent="PlayerCamera/CanvasLayer/DisplayManager/VBoxContainer"]
+[node name="Coordinates" type="Label" parent="PlayerCamera/PlayerUI/DisplayManager/VBoxContainer"]
 layout_mode = 2
+
+[node name="SaveManager" type="Control" parent="PlayerCamera/PlayerUI" node_paths=PackedStringArray("lastsaved", "savelabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_cfuqo")
+lastsaved = NodePath("LastSaved")
+savelabel = NodePath("SaveAccept")
+
+[node name="Input" type="LineEdit" parent="PlayerCamera/PlayerUI/SaveManager"]
+layout_mode = 0
+offset_top = 1043.0
+offset_right = 502.0
+offset_bottom = 1080.0
+theme_override_constants/outline_size = 0
+placeholder_text = "File Name:"
+max_length = 20
+
+[node name="SaveAccept" type="Label" parent="PlayerCamera/PlayerUI/SaveManager"]
+visible = false
+layout_mode = 0
+offset_top = 1020.0
+offset_right = 307.0
+offset_bottom = 1043.0
+
+[node name="LastSaved" type="Timer" parent="PlayerCamera/PlayerUI/SaveManager"]
+
+[node name="Label" type="Label" parent="PlayerCamera/PlayerUI/SaveManager"]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 1048.0
+offset_right = 493.0
+offset_bottom = 1071.0
+text = "(Enter to save)"
 
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
@@ -74,4 +110,6 @@ script = ExtResource("2_os0tv")
 [node name="BonusManager" type="Node2D" parent="."]
 script = ExtResource("8_r0b50")
 
+[connection signal="text_submitted" from="PlayerCamera/PlayerUI/SaveManager/Input" to="PlayerCamera/PlayerUI/SaveManager" method="_on_input_text_submitted"]
+[connection signal="timeout" from="PlayerCamera/PlayerUI/SaveManager/LastSaved" to="PlayerCamera/PlayerUI/SaveManager" method="_on_last_saved_timeout"]
 [connection signal="timeout" from="ButtonManagerControl/ButtonManager/ButtonTimer" to="ButtonManagerControl/ButtonManager" method="_on_resource_timer_timeout"]

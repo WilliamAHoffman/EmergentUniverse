@@ -5,7 +5,7 @@ var resources : Dictionary
 
 
 func _ready():
-	_import_resources_data("res://data/resource_data.txt")
+	_import_resources_data("res://data/base/resource_data.txt")
 
 
 func _import_resources_data(file_name):
