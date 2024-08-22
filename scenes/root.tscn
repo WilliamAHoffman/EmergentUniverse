@@ -16,6 +16,54 @@ script = ExtResource("4_t6vcs")
 
 [node name="PlayerUI" type="CanvasLayer" parent="PlayerCamera"]
 
+[node name="SaveSender" type="Control" parent="PlayerCamera/PlayerUI" node_paths=PackedStringArray("lastsaved", "savelabel", "resource_manager", "button_manager", "bonus_manager", "errorlabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_cfuqo")
+lastsaved = NodePath("LastSaved")
+savelabel = NodePath("SaveAccept")
+resource_manager = NodePath("../../../ResourceManager")
+button_manager = NodePath("../../../ButtonManagerControl/ButtonManager")
+bonus_manager = NodePath("../../../BonusManager")
+errorlabel = NodePath("SaveError")
+
+[node name="Input" type="LineEdit" parent="PlayerCamera/PlayerUI/SaveSender"]
+layout_mode = 0
+offset_top = 1043.0
+offset_right = 502.0
+offset_bottom = 1080.0
+theme_override_constants/outline_size = 0
+placeholder_text = "File Name:"
+max_length = 20
+
+[node name="SaveAccept" type="Label" parent="PlayerCamera/PlayerUI/SaveSender"]
+visible = false
+layout_mode = 0
+offset_top = 1020.0
+offset_right = 307.0
+offset_bottom = 1043.0
+
+[node name="LastSaved" type="Timer" parent="PlayerCamera/PlayerUI/SaveSender"]
+
+[node name="SaveError" type="Label" parent="PlayerCamera/PlayerUI/SaveSender"]
+visible = false
+layout_mode = 0
+offset_left = 2.0
+offset_top = 989.0
+offset_right = 338.0
+offset_bottom = 1012.0
+text = "Can only contain the latin alphabet, numbers or underscores"
+
+[node name="SaveTip" type="Label" parent="PlayerCamera/PlayerUI/SaveSender"]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 1043.0
+offset_right = 503.0
+offset_bottom = 1080.0
+text = "Enter to save"
+
 [node name="DisplayManager" type="Control" parent="PlayerCamera/PlayerUI" node_paths=PackedStringArray("click_counter", "second_counter", "coordinates", "camera")]
 layout_mode = 3
 anchors_preset = 0
@@ -47,41 +95,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Coordinates" type="Label" parent="PlayerCamera/PlayerUI/DisplayManager/VBoxContainer"]
 layout_mode = 2
 
-[node name="SaveManager" type="Control" parent="PlayerCamera/PlayerUI" node_paths=PackedStringArray("lastsaved", "savelabel")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_cfuqo")
-lastsaved = NodePath("LastSaved")
-savelabel = NodePath("SaveAccept")
-
-[node name="Input" type="LineEdit" parent="PlayerCamera/PlayerUI/SaveManager"]
-layout_mode = 0
-offset_top = 1043.0
-offset_right = 502.0
-offset_bottom = 1080.0
-theme_override_constants/outline_size = 0
-placeholder_text = "File Name:"
-max_length = 20
-
-[node name="SaveAccept" type="Label" parent="PlayerCamera/PlayerUI/SaveManager"]
-visible = false
-layout_mode = 0
-offset_top = 1020.0
-offset_right = 307.0
-offset_bottom = 1043.0
-
-[node name="LastSaved" type="Timer" parent="PlayerCamera/PlayerUI/SaveManager"]
-
-[node name="Label" type="Label" parent="PlayerCamera/PlayerUI/SaveManager"]
-layout_mode = 0
-offset_left = 382.0
-offset_top = 1048.0
-offset_right = 493.0
-offset_bottom = 1071.0
-text = "(Enter to save)"
-
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -110,6 +123,6 @@ script = ExtResource("2_os0tv")
 [node name="BonusManager" type="Node2D" parent="."]
 script = ExtResource("8_r0b50")
 
-[connection signal="text_submitted" from="PlayerCamera/PlayerUI/SaveManager/Input" to="PlayerCamera/PlayerUI/SaveManager" method="_on_input_text_submitted"]
-[connection signal="timeout" from="PlayerCamera/PlayerUI/SaveManager/LastSaved" to="PlayerCamera/PlayerUI/SaveManager" method="_on_last_saved_timeout"]
+[connection signal="text_submitted" from="PlayerCamera/PlayerUI/SaveSender/Input" to="PlayerCamera/PlayerUI/SaveSender" method="_on_input_text_submitted"]
+[connection signal="timeout" from="PlayerCamera/PlayerUI/SaveSender/LastSaved" to="PlayerCamera/PlayerUI/SaveSender" method="_on_last_saved_timeout"]
 [connection signal="timeout" from="ButtonManagerControl/ButtonManager/ButtonTimer" to="ButtonManagerControl/ButtonManager" method="_on_resource_timer_timeout"]

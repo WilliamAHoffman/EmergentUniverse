@@ -32,7 +32,7 @@ func _import_resources_data(file_name):
 				resources[dict_name].total_quantity = int(words[1])
 			elif words[0] == "perma_unlocked":
 				if words[1] == "false":
-					resources[dict_name].perma_unlocked = false
+					resources[dict_name].perma_unlocked = words[1]
 				else:
 					resources[dict_name].perma_unlocked = true
 	file.close()
