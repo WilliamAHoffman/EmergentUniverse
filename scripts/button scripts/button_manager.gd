@@ -120,18 +120,13 @@ func _import_button_data(file_name) -> void:
 				buttons[dict_name].add_random_resources[resources[words[1]]] = [int(words[2]),int(words[3]),int(words[4])]
 			elif words[0] == "random_resource_efficiency":
 				buttons[dict_name].random_resource_efficiency = int(words[1])
-			elif words[0] == "location":
-				buttons[dict_name].location = words[1]
 			elif words[0] == "perma_unlocked":
 				if words[1] == "false":
 					buttons[dict_name].perma_unlocked = false
 				else:
 					buttons[dict_name].perma_unlocked = true
 			elif words[0] == "bonus":
-				if words[2] == "self":
-					_apply_bonuses(dict_name, bonuses[words[1]], buttons[dict_name])
-				else:
-					_apply_bonuses(dict_name, bonuses[words[1]], buttons[words[2]])
+				_apply_bonuses(buttons[dict_name], bonuses[words[1]], buttons[words[2]])
 			elif words[0] == "pos":
 				buttons[dict_name].position = Vector2(int(words[1]), int(words[2]))
 	file.close()
@@ -142,11 +137,13 @@ func _send_bonuses(button) -> void:
 		_update_bonuses(reciever.button)
 
 
-func _apply_bonuses(sender : String, bonus : BonusData, reciever : ButtonData) -> void:
+func _apply_bonuses(sender : ButtonData, bonus : BonusData, reciever : ButtonData) -> void:
 	if !reciever.in_bonus.has(sender):
 		reciever.in_bonus[sender] = []
+	if !sender.out_bonus.has(reciever):
+		sender.out_bonus[reciever] = []
 	reciever.in_bonus[sender].append(bonus)
-	buttons[sender].out_bonus.append(reciever)
+	sender.out_bonus[reciever].append(bonus)
 
 
 func _update_bonuses(button : Button) -> void:
@@ -154,9 +151,9 @@ func _update_bonuses(button : Button) -> void:
 	buttons[button.name].per_click = 0
 	buttons[button.name].per_second = 0
 	for sender in buttons[button.name].in_bonus:
-		if buttons[sender].add_resource != null:
-			if sender != button.name:
-				quantity = buttons[sender].add_resource.quantity
+		if sender.add_resource != null:
+			if sender.button.name != button.name:
+				quantity = sender.add_resource.quantity
 		for bonus in buttons[button.name].in_bonus[sender]:
 			buttons[button.name].per_click += bonus.per_click * quantity
 			buttons[button.name].per_second += bonus.per_second * quantity
@@ -170,7 +167,6 @@ func _add_button_data() -> void:
 		buttons[button.name].label = button.get_parent().get_child(0)
 		if !buttons[button.name].is_unlocked:
 			button.get_parent().visible = false
-		button.connect("visibility_changed",_on_visibility_changed.bind(buttons[button.name].location))
 
 
 func _add_notif(button : Button) -> void:

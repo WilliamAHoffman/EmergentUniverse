@@ -1,0 +1,55 @@
+dict_name==Time
+name==Time
+quantity==21
+total_quantity==21
+perma_unlocked==true
+dict_name==Influence
+name==Influence
+quantity==9
+total_quantity==74
+perma_unlocked==true
+dict_name==VirtualParticle
+name==Virtual Particles
+quantity==2
+total_quantity==17
+perma_unlocked==true
+dict_name==WaveFunction
+name==Wave Functions
+quantity==16
+total_quantity==35
+perma_unlocked==true
+dict_name==UpQuark
+name==UpQuark
+quantity==1
+total_quantity==1
+perma_unlocked==true
+dict_name==DownQuark
+name==DownQuark
+quantity==1
+total_quantity==1
+perma_unlocked==true
+dict_name==QuantumFoam
+name==Quantum Foam
+quantity==3
+total_quantity==3
+perma_unlocked==true
+dict_name==Entanglement
+name==Entanglement
+quantity==2
+total_quantity==2
+perma_unlocked==true
+dict_name==Proton
+name==Protons
+quantity==0
+total_quantity==0
+perma_unlocked==true
+dict_name==Neutron
+name==Neutrons
+quantity==0
+total_quantity==0
+perma_unlocked==true
+dict_name==StrangeQuark
+name==Strange Quarks
+quantity==0
+total_quantity==0
+perma_unlocked==false

@@ -6,11 +6,10 @@ var main_text : String
 var is_unlocked = false
 var button : Button
 var label : Label
-var location : String
 var perma_unlocked = true
 var sprite : Sprite2D
 var in_bonus : Dictionary
-var out_bonus : Array
+var out_bonus : Dictionary
 var position : Vector2
 
 #Conditional variables

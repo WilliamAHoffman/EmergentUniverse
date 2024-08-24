@@ -1,13 +1,13 @@
 dict_name==ResourceTime
 add_resource==Time
 location==ResourceGrid
-bonus==BaseSecond==self
+bonus==BaseSecond==ResourceTime
 pos==0==-1000
 
 dict_name==ResourceInfluence
 add_resource==Influence
 location==ResourceGrid
-bonus==BaseClick==self
+bonus==BaseClick==ResourceInfluence
 pos==1000==0
 
 dict_name==ResourceWaveFunction
@@ -17,7 +17,7 @@ add_random_resources==VirtualParticle==0==50==1
 unlock_criteria==Influence==5
 random_resource_efficiency==10
 location==ResourceGrid
-bonus==BaseClick==self
+bonus==BaseClick==ResourceWaveFunction
 pos==2500==0
 
 dict_name==ResourceVirtualParticle
@@ -32,7 +32,7 @@ cost==VirtualParticle==2
 add_random_resources==UpQuark==0==50==1
 add_random_resources==DownQuark==50==100==1
 unlock_criteria==VirtualParticle==2
-bonus==BaseClick==self
+bonus==BaseClick==ActionQuark
 location==ActionGrid
 pos==-1000==1000
 
@@ -56,7 +56,7 @@ cost==Influence==5
 unlock_criteria==WaveFunction==5
 cost_scaling==0.2
 location==ShopGrid
-bonus==BaseClick==self
+bonus==BaseClick==ShopQuantumFoam
 bonus==BaseSecond==ResourceInfluence
 pos==2000==-1000
 
@@ -68,7 +68,7 @@ cost==Influence==5
 unlock_criteria==VirtualParticle==5
 cost_scaling==0.2
 location==ShopGrid
-bonus==BaseClick==self
+bonus==BaseClick==ShopEntanglement
 bonus==BaseSecond==ResourceWaveFunction
 pos==3000==-1000
 
@@ -80,7 +80,7 @@ cost==WaveFunction==200
 unlock_criteria==UpQuark==2
 unlock_criteria==DownQuark==1
 location==ResourceGrid
-bonus==BaseClick==self
+bonus==BaseClick==ResourceProton
 pos==-2000==1000
 
 dict_name==ResourceNeutron
@@ -91,7 +91,7 @@ cost==WaveFunction==200
 unlock_criteria==UpQuark==1
 unlock_criteria==DownQuark==2
 location==ResourceGrid
-bonus==BaseClick==self
+bonus==BaseClick==ResourceNeutron
 pos==-2000==2000
 
 dict_name==ResourceStrangeQuark
