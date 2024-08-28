@@ -1,0 +1,4 @@
+total_clicks==0
+total_seconds==0
+max_clicks==200
+max_seconds==200

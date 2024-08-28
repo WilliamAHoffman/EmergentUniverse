@@ -1,49 +1,49 @@
 dict_name==Time
 name==Time
-quantity==13
-total_quantity==13
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==Influence
 name==Influence
-quantity==26
-total_quantity==81
+quantity==10
+total_quantity==10
 perma_unlocked==true
 
 dict_name==VirtualParticle
 name==Virtual Particles
-quantity==9
-total_quantity==20
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==WaveFunction
 name==Wave Functions
-quantity==28
-total_quantity==39
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==UpQuark
 name==UpQuark
-quantity==2
-total_quantity==2
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==DownQuark
 name==DownQuark
-quantity==1
-total_quantity==1
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==QuantumFoam
 name==Quantum Foam
-quantity==2
-total_quantity==2
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==Entanglement
 name==Entanglement
-quantity==1
-total_quantity==1
+quantity==0
+total_quantity==0
 perma_unlocked==true
 
 dict_name==Proton

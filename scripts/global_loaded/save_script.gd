@@ -15,7 +15,15 @@ func _save(filename, resources, buttons, bonuses):
 	_save_resources(filename, resources)
 	_save_bonuses(filename, bonuses)
 	_save_buttons(filename, buttons)
+	_save_player(filename)
 
+
+func _save_player(filename) -> void:
+	var file = FileAccess.open("res://data/saves/" + filename + "_player.txt",FileAccess.WRITE)
+	file.store_string("total_clicks" + dl + str(Player.total_clicks) + "\n")
+	file.store_string("total_seconds" + dl + str(Player.total_seconds) + "\n")
+	file.store_string("max_seconds" + dl + str(Player.max_seconds) + "\n")
+	file.store_string("max_clicks" + dl + str(Player.max_clicks) + "\n")
 
 func _save_resources(filename : String, resources) -> void:
 	var file = FileAccess.open("res://data/saves/" + filename + "_resource.txt",FileAccess.WRITE)
@@ -82,9 +90,11 @@ func _save_random(dict : Dictionary, dl) -> String:
 
 func _create_saves() -> void:
 	if !FileAccess.file_exists("res://data/saves/save_bonus.txt"):
-		var _file_resource = FileAccess.open("res://data/saves/save_bonus.txt",FileAccess.WRITE)
+		FileAccess.open("res://data/saves/save_bonus.txt",FileAccess.WRITE)
 	if !FileAccess.file_exists("res://data/saves/save_button.txt"):
-		var _file_button = FileAccess.open("res://data/saves/save_button.txt",FileAccess.WRITE)
+		FileAccess.open("res://data/saves/save_button.txt",FileAccess.WRITE)
 	if !FileAccess.file_exists("res://data/saves/save_resource.txt"):
-		var _file_bonus = FileAccess.open("res://data/saves/save_resource.txt",FileAccess.WRITE)
+		FileAccess.open("res://data/saves/save_resource.txt",FileAccess.WRITE)
+	if !FileAccess.file_exists("res://data/saves/save_player.txt"):
+		FileAccess.open("res://data/saves/save_player.txt",FileAccess.WRITE)
 	
