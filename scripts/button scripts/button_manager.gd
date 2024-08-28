@@ -19,14 +19,16 @@ func _ready() -> void:
 	resources = resource_manager.resources
 	bonuses = bonus_manager.bonuses
 	_import_button_data("res://data/base/button_data.txt")
+	_import_button_data("res://data/saves/save_button.txt")
 	_create_buttons()
 	_get_child_buttons()
 	_add_button_data()
 	for button in button_children:
 		_update_bonuses(button)
+	EventBus.emit_signal("finishbuttons", buttons)
 
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	for button in button_children:
 		_unlock_buttons(button)
 		buttons[button.name].update_text()
@@ -221,7 +223,7 @@ func _on_visibility_changed(location) -> void:
 	EventBus.emit_signal("vis_notif", location)
 
 
-func _is_affordable(resource) -> void:
+func _is_affordable() -> void:
 	for in_button in button_children:
 		var button = buttons[in_button.name]
 		if button._check_cost(button.per_click):

@@ -6,7 +6,7 @@ var screen_start_position
 var dragging = false
 
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	_zoom()
 
 

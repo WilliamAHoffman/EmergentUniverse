@@ -5,23 +5,28 @@ var buttons : Dictionary
 var lines : Array
 
 func _ready() -> void:
-	buttons = button_manager.buttons
-	await owner.ready
-	EventBus.connect("unlock_button", _create_all_lines)
+	EventBus.connect("unlock_button", _check_all_lines)
+	EventBus.connect("finishbuttons", _create_every_line)
 
 
-func _check_all_lines() -> void:
+
+func _create_every_line(buttondict : Dictionary) -> void:
+	buttons = buttondict
+	for button in buttons:
+		_create_all_lines(buttons[button])
+
+
+func _check_all_lines(_button) -> void:
 	for line in lines:
 		if !line.line.visible:
 			if line.sender.is_unlocked and line.reciever.is_unlocked:
 				line.line.visible = true
 
 
-func _create_all_lines(in_button) -> void:
-	_create_lines(in_button, buttons[in_button.name].cost, "cost", Color(96,96,96,0.5))
-	_create_lines(in_button, buttons[in_button.name].add_random_resources, "random", Color(102,0,102,0.3))
-	
-	_check_all_lines()
+func _create_all_lines(in_button : ButtonData) -> void:
+	_create_lines(in_button.button, in_button.cost, "cost", Color(96,96,96,0.5))
+	_create_lines(in_button.button, in_button.add_random_resources, "random", Color(102,0,102,0.3))
+	_check_all_lines(in_button.button)
 
 
 func _create_lines(in_button : Button, recievers, type : String, color : Color) -> void:

@@ -5,6 +5,7 @@ var bonuses : Dictionary
 
 func _ready():
 	_import_bonus_data("res://data/base/bonus_data.txt")
+	_import_bonus_data("res://data/saves/save_bonus.txt")
 
 
 func _import_bonus_data(file_name) -> void:

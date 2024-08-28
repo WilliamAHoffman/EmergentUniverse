@@ -99,7 +99,7 @@ func _add_resources(quantity, resource) -> void:
 
 
 func _add_random_resources(quantity_generated_from) -> void:
-	var quantity_multi = (quantity_generated_from * (random_resource_efficiency/100)) + 1
+	var quantity_multi = (quantity_generated_from * float(random_resource_efficiency/100)) + 1
 	var rand_int = randi_range(0, 100)
 	for resource in add_random_resources:
 		if rand_int in range(add_random_resources[resource][0], add_random_resources[resource][1]):
