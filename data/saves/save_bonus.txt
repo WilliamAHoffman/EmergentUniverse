@@ -5,4 +5,3 @@ per_second==0
 dict_name==BaseSecond
 per_click==0
 per_second==1
-

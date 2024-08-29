@@ -25,6 +25,7 @@ func _ready() -> void:
 	_add_button_data()
 	for button in button_children:
 		_update_bonuses(button)
+	_is_affordable(null)
 	EventBus.emit_signal("finishbuttons", buttons)
 
 
@@ -223,7 +224,7 @@ func _on_visibility_changed(location) -> void:
 	EventBus.emit_signal("vis_notif", location)
 
 
-func _is_affordable() -> void:
+func _is_affordable(_resource) -> void:
 	for in_button in button_children:
 		var button = buttons[in_button.name]
 		if button._check_cost(button.per_click):

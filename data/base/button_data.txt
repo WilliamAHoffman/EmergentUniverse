@@ -87,3 +87,19 @@ dict_name==ResourceStrangeQuark
 add_resource==StrangeQuark
 perma_unlocked==false
 pos==0==0
+
+dict_name==ActionCollide
+main_text==Collide Protons to create new particles
+bonus==BaseClick==ActionCollide
+cost==Proton==2
+unlock_criteria==UpQuark==2
+unlock_criteria==DownQuark==2
+add_random_resources==UpQuark==100==100==4
+add_random_resources==DownQuark==100==100==4
+add_random_resources==Electron==0==100==1
+pos==-3000==1000
+
+dict_name==ResourceElectron
+add_resource==Electron
+unlock_criteria==Electron==1
+pos==-3000==2000

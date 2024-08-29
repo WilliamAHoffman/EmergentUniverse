@@ -31,3 +31,6 @@ name==Neutrons
 dict_name==StrangeQuark
 name==Strange Quarks
 perma_unlocked==false
+
+dict_name==Electron
+name==Electrons
