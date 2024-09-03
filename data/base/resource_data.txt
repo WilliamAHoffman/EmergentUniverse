@@ -3,34 +3,54 @@ name==Time
 
 dict_name==Influence
 name==Influence
+milestone==1000
+milestone==10000
 
 dict_name==VirtualParticle
 name==Virtual Particles
+milestone==1000
 
 dict_name==WaveFunction
 name==Wave Functions
+milestone==1000
 
 dict_name==UpQuark
 name==UpQuark
+milestone==1000
 
 dict_name==DownQuark
 name==DownQuark
+milestone==1000
 
 dict_name==QuantumFoam
 name==Quantum Foam
+milestone==1000
 
 dict_name==Entanglement
 name==Entanglement
+milestone==1000
 
 dict_name==Proton
 name==Protons
+milestone==1000
 
 dict_name==Neutron
 name==Neutrons
+milestone==1000
 
 dict_name==StrangeQuark
 name==Strange Quarks
 perma_unlocked==false
+milestone==1000
 
 dict_name==Electron
 name==Electrons
+milestone==1000
+
+dict_name==WaveDuality
+name==Wave Duality
+milestone==1000
+
+dict_name==ElectronOrbital
+name==Electron Orbitals
+milestone==1000

@@ -3,3 +3,6 @@ per_click==1
 
 dict_name==BaseSecond
 per_second==1
+
+dict_name==DoubleClick
+per_click==2

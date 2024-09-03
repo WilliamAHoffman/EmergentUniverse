@@ -1,4 +1,0 @@
-total_clicks==272
-total_seconds==170
-max_seconds==200
-max_clicks==200

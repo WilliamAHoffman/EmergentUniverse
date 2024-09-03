@@ -60,6 +60,8 @@ func update_text() -> void:
 			label.text += "\n" + "Per Click: " + str(per_click)
 		if(per_second != 0):
 			label.text += "\n" + "Per Second: " + str(per_second)
+		if add_resource.milestone.size() > 0:
+			label.text += "\nnext milestone: " + str(add_resource.milestone[0]) 
 	
 	if cost.size() > 0:
 		label.text += "\ncost: "
@@ -69,6 +71,7 @@ func update_text() -> void:
 	
 	if on_timer_active:
 		label.text += "\nactive: " + str(unpause_timer)
+
 
 
 #Optional Functions

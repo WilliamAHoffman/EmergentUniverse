@@ -8,6 +8,10 @@ func _ready():
 	_import_resources_data("res://data/base/resource_data.txt")
 	_import_resources_data("res://data/saves/save_resource.txt")
 
+func _physics_process(delta: float) -> void:
+	for resource in resources:
+		resources[resource].check_milestone()
+
 
 func _import_resources_data(file_name):
 	var file = FileAccess.open(file_name, FileAccess.READ)
@@ -36,4 +40,6 @@ func _import_resources_data(file_name):
 					resources[dict_name].perma_unlocked = words[1]
 				else:
 					resources[dict_name].perma_unlocked = true
+			elif words[0] == "milestone":
+				resources[dict_name].milestone.append(int(words[1]))
 	file.close()

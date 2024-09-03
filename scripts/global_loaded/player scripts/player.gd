@@ -1,10 +1,10 @@
 extends Node
 
-var milestones : Dictionary
 var total_clicks : int
 var total_seconds : int
 var max_clicks : int
 var max_seconds : int
+var knowledge : int
 
 func _ready() -> void:
 	_load_data("res://data/base/player_data.txt")
@@ -25,3 +25,5 @@ func _load_data(filename) -> void:
 				max_clicks = int(words[1])
 			if words[0] == "max_seconds":
 				max_seconds = int(words[1])
+			if words[0] == "knowledge":
+				knowledge == int(words[1]) 

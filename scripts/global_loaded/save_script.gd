@@ -8,7 +8,7 @@ var dl = "=="
 
 func _ready() -> void:
 	_create_saves()
-	EventBus.connect("save", _save)
+	#EventBus.connect("save", _save)
 
 
 func _save(filename, resources, buttons, bonuses):
@@ -24,6 +24,7 @@ func _save_player(filename) -> void:
 	file.store_string("total_seconds" + dl + str(Player.total_seconds) + "\n")
 	file.store_string("max_seconds" + dl + str(Player.max_seconds) + "\n")
 	file.store_string("max_clicks" + dl + str(Player.max_clicks) + "\n")
+	file.store_string("knowledge" + dl + str(Player.knowledge) + "\n")
 
 func _save_resources(filename : String, resources) -> void:
 	var file = FileAccess.open("res://data/saves/" + filename + "_resource.txt",FileAccess.WRITE)
@@ -34,6 +35,7 @@ func _save_resources(filename : String, resources) -> void:
 		file.store_string("quantity" + dl + str(item.quantity) + "\n")
 		file.store_string("total_quantity" + dl + str(item.total_quantity) + "\n")
 		file.store_string("perma_unlocked" + dl + str(item.perma_unlocked) + "\n")
+		file.store_string(_save_array(item.milestone, "milestone"))
 		file.store_string("\n")
 
 
@@ -68,6 +70,12 @@ func _save_buttons(filename : String, buttons) -> void:
 		file.store_string("\n")
 
 
+func _save_array(array, item_name) -> String:
+	var lines = ""
+	for item in array:
+		lines += item_name + dl + str(item) + "\n"
+	return lines
+
 func _save_bonus(out_bonus : Dictionary, in_bonus : Dictionary, dl) -> String:
 	var bonus_lines = ""
 	for item in out_bonus:
@@ -97,4 +105,9 @@ func _create_saves() -> void:
 		FileAccess.open("res://data/saves/save_resource.txt",FileAccess.WRITE)
 	if !FileAccess.file_exists("res://data/saves/save_player.txt"):
 		FileAccess.open("res://data/saves/save_player.txt",FileAccess.WRITE)
-	
+
+func _erase_saves()-> void:
+	FileAccess.open("res://data/saves/save_bonus.txt",FileAccess.WRITE)
+	FileAccess.open("res://data/saves/save_button.txt",FileAccess.WRITE)
+	FileAccess.open("res://data/saves/save_resource.txt",FileAccess.WRITE)
+	FileAccess.open("res://data/saves/save_player.txt",FileAccess.WRITE)

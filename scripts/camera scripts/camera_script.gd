@@ -12,10 +12,10 @@ func _physics_process(_delta) -> void:
 
 func _zoom() -> void:
 	if Input.is_action_just_released('wheel_down'):
-		if get_zoom() - Vector2(0.1, 0.1) != Vector2(0,0):
+		if get_zoom().length() - Vector2(0.1, 0.1).length() != 0:
 			set_zoom(get_zoom() - Vector2(0.1, 0.1))
 	if Input.is_action_just_released('wheel_up'):
-		if get_zoom() + Vector2(0.1, 0.1) != Vector2(0,0) and get_zoom() < Vector2(3,3):
+		if get_zoom().length() + Vector2(0.1, 0.1).length() != 0 and get_zoom() < Vector2(3,3):
 			set_zoom(get_zoom() + Vector2(0.1, 0.1))
 
 
