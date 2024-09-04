@@ -19,11 +19,11 @@ func _load_data(filename) -> void:
 			var words = line.split("==")
 			if words[0] == "total_clicks":
 				total_clicks = int(words[1])
-			if words[0] == "total_seconds":
+			elif words[0] == "total_seconds":
 				total_seconds = int(words[1])
-			if words[0] == "max_clicks":
+			elif words[0] == "max_clicks":
 				max_clicks = int(words[1])
-			if words[0] == "max_seconds":
+			elif words[0] == "max_seconds":
 				max_seconds = int(words[1])
-			if words[0] == "knowledge":
-				knowledge == int(words[1]) 
+			elif words[0] == "knowledge":
+				knowledge = int(words[1]) 

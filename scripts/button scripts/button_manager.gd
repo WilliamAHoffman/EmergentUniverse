@@ -46,16 +46,16 @@ func _on_button_pressed(event, button) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				_left_click(button)
+				if Input.is_action_pressed("single"):
+					_left_click(button, "single")
+				else:
+					_left_click(button, "click")
 			MOUSE_BUTTON_RIGHT:
 				_right_click(button)
 
 
-func _left_click(button) -> void:
-	if buttons[button.name].add_resource != null:
-		buttons[button.name]._on_activate("click")
-	else:
-		buttons[button.name]._on_activate("click")
+func _left_click(button, type) -> void:
+	buttons[button.name]._on_activate(type)
 
 
 func _toggle_all() -> void:
@@ -68,6 +68,9 @@ func _toggle_all() -> void:
 
 
 func _right_click(button) -> void:
+	if !_check_time():
+		return
+	
 	if buttons[button.name].on_timer_active:
 		if buttons[button.name].unpause_timer:
 			buttons[button.name].unpause_timer = false
@@ -196,6 +199,9 @@ func _unlock_buttons(button : Button) -> void:
 
 
 func _on_resource_timer_timeout() -> void:
+	if !_check_time():
+		buttons["ResourceTime"].unpause_timer = false
+		return
 	Player.total_seconds += 1
 	for button in button_children:
 		if buttons[button.name].add_resource != null:
@@ -237,3 +243,9 @@ func _get_child_buttons() -> void:
 	button_children = []
 	for template in loaded_buttons.get_children():
 		button_children.append(template.get_child(0).get_child(2))
+
+
+func _check_time() -> bool:
+	if Player.max_seconds <= Player.total_seconds:
+		return false
+	return true

@@ -6,3 +6,6 @@ per_second==1
 
 dict_name==DoubleClick
 per_click==2
+
+dict_name==FiveClick
+per_click==5

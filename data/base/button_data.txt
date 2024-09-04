@@ -106,23 +106,23 @@ pos==-3000==2000
 
 dict_name==ShopWaveDuality
 add_resource==WaveDuality
-main_text==Generate +1 Wave Function per click
+main_text==Generate +5 Wave Function per click
 cost==UpQuark==5
 cost==DownQuark==5
 unlock_criteria==UpQuark==1
 unlock_criteria==DownQuark==1
 cost_scaling==0.2
 bonus==BaseClick==ShopWaveDuality
-bonus==BaseClick==ResourceWaveFunction
+bonus==FiveClick==ResourceWaveFunction
 pos==0==2000
 
 
 dict_name==ShopElectronOrbital
 add_resource==ElectronOrbital
-main_text==Generate +2 Influence per click
+main_text==Generate +5 Influence per click
 cost==Electron==1
 unlock_criteria==Electron==1
 cost_scaling==0.2
 bonus==BaseClick==ShopElectronOrbital
-bonus==DoubleClick==ResourceInfluence
+bonus==FiveClick==ResourceInfluence
 pos==-3000==3000

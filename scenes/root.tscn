@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyj1qkdkxyycc"]
+[gd_scene load_steps=10 format=3 uid="uid://cyj1qkdkxyycc"]
 
 [ext_resource type="Script" path="res://scripts/button scripts/button_manager.gd" id="1_u0srf"]
 [ext_resource type="Script" path="res://scripts/resource scripts/resource_manager.gd" id="2_os0tv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/button scripts/line_manager.gd" id="5_mawb6"]
 [ext_resource type="Script" path="res://scripts/display scripts/display_manager.gd" id="6_iwpn0"]
 [ext_resource type="Script" path="res://scripts/bonus scripts/bonus_manager.gd" id="8_r0b50"]
+[ext_resource type="Script" path="res://scripts/acsend scripts/ascend_manager.gd" id="9_urv85"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -68,6 +69,13 @@ layout_mode = 2
 [node name="Knowledge" type="Label" parent="PlayerCamera/PlayerUI/DisplayManager/VBoxContainer"]
 layout_mode = 2
 
+[node name="AscendButton" type="Button" parent="PlayerCamera/PlayerUI"]
+offset_left = 1764.0
+offset_top = 1029.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+text = "Ascend"
+
 [node name="ButtonManagerControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -96,5 +104,9 @@ script = ExtResource("2_os0tv")
 [node name="BonusManager" type="Node2D" parent="."]
 script = ExtResource("8_r0b50")
 
+[node name="AscendManager" type="Node2D" parent="."]
+script = ExtResource("9_urv85")
+
 [connection signal="button_down" from="PlayerCamera/PlayerUI/SaveSender/SaveQuit" to="PlayerCamera/PlayerUI/SaveSender" method="_on_save_quit_button_down"]
+[connection signal="pressed" from="PlayerCamera/PlayerUI/AscendButton" to="AscendManager" method="_on_ascend_button_pressed"]
 [connection signal="timeout" from="ButtonManagerControl/ButtonManager/ButtonTimer" to="ButtonManagerControl/ButtonManager" method="_on_resource_timer_timeout"]

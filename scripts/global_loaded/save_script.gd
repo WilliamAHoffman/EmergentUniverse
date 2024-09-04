@@ -36,6 +36,7 @@ func _save_resources(filename : String, resources) -> void:
 		file.store_string("total_quantity" + dl + str(item.total_quantity) + "\n")
 		file.store_string("perma_unlocked" + dl + str(item.perma_unlocked) + "\n")
 		file.store_string(_save_array(item.milestone, "milestone"))
+		file.store_string(_save_array(item.knowledge, "knowledge"))
 		file.store_string("\n")
 
 

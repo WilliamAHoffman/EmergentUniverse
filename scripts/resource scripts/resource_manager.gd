@@ -42,4 +42,6 @@ func _import_resources_data(file_name):
 					resources[dict_name].perma_unlocked = true
 			elif words[0] == "milestone":
 				resources[dict_name].milestone.append(int(words[1]))
+			elif words[0] == "knowledge":
+				resources[dict_name].knowledge.append(int(words[1]))
 	file.close()
